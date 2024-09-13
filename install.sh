@@ -37,7 +37,6 @@ else
     exit 1
 fi
 
-# Copiar la nueva carpeta
 echo "[+] Removing after folder"
 if rm -fr "$CONFIG_NVIM/after" ; then
     echo "[+] Removed "
@@ -48,31 +47,10 @@ fi
 
 # Instalar paquetes usando Packer
 echo "[+] Installing packages"
-
-echo "    Source packer config        [--      ]"
-if ! nvim --headless +"so" $NVIM_PACKER +q; then
+if ! nvim --headless -c "lua require(\"packer\").install()" -c "qa" $NVIM_PACKER +q; then
     echo "[-] Error sourcing packer config" >&2
     exit 1
 fi
-
-echo "    Installing packages         [----    ]"
-if ! nvim --headless +"PackerInstall" $NVIM_PACKER +q; then
-    echo "[-] Error installing packages" >&2
-    exit 1
-fi
-
-echo "    Installing packages (check) [------  ]"
-if ! nvim --headless +"PackerInstall" $NVIM_PACKER +q; then
-    echo "[-] Error on package installation check" >&2
-    exit 1
-fi
-
-echo "    Compiling packer            [--------]"
-if ! nvim --headless +"PackerCompile" $NVIM_PACKER +q; then
-    echo "[-] Error compiling packer" >&2
-    exit 1
-fi
-
 echo "[+] Packages installed and compiled successfully."
 
 echo "[+] Copying after folder"
