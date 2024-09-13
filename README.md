@@ -2,7 +2,7 @@
 
 Nvim config with installation script.
 
-> ![NOTE]
+> [!NOTE]
 > Despite installation script shows some errors,
 > nvim config is set correctly.
 
