@@ -113,7 +113,7 @@
 **Harpoon Commands**
 - `n <C-e>`: Toggle the Harpoon quick menu.
 - `n <leader>a`: Add the current file to Harpoon marks.
-- `n <leader>e`: Copy current line and add to Harpoon marks.
+- `n <leader>e`: Copy current line and add to Harpoon marks. (for file explorer)
 - `n <leader>1`: Navigate to file in Harpoon slot 1.
 - `n <leader>2`: Navigate to file in Harpoon slot 2.
 - `n <leader>3`: Navigate to file in Harpoon slot 3.
@@ -121,9 +121,9 @@
 - `n <leader>5`: Navigate to file in Harpoon slot 5.
 - `n <leader>6`: Navigate to file in Harpoon slot 6.
 
-**File Operations and Formatting**
+**Formatting**
 - `n <leader><leader>`: Format the current file.
-- `n <leader>x`: Give execution permissions to the file.
+- `v <leader>x`: Extract selection to a function.
 
 **Quickfix and Location List Navigation**
 - `n <C-k>`: Move to the next quickfix entry.
