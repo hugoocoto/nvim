@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 CONFIG_NVIM="$HOME/.config/nvim"
 NEW_NVIM_FOLDER="./nvim"
 NVIM_PACKER="$HOME/.config/nvim/lua/hugo/packer.lua"
@@ -17,6 +18,16 @@ if [ -d "$CONFIG_NVIM" ]; then
         exit 1
     fi
 fi
+
+echo "Installing packer"
+if git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+    ~/.local/share/nvim/site/pack/packer/start/packer.nvim; then
+    echo "[+] Installed"
+else
+    echo "[-] Error installing packer">&2
+    exit 1
+fi
+
 
 # Copiar la nueva carpeta
 echo "[+] Copying $NEW_NVIM_FOLDER to $CONFIG_NVIM"
