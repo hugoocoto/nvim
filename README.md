@@ -28,5 +28,5 @@ There are a file called ./vim_cheatsheet.md with (almost) all the mappings.
 
 ### How to learn a bit more
 
-I copy the config from @theprimeagen and do my own modifications.
+I copy the config from @ThePrimeagen and do my own modifications.
 So [this video](https://youtu.be/w7i4amO_zaE?si=fkHsVl8H6WOGavTf) should explain a little more about the config.
