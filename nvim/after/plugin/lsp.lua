@@ -4,15 +4,12 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
     'clangd',
-    'bashls',
     'lua_ls',
     'jdtls',
-    'marksman',
 })
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
-
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -40,8 +37,8 @@ lsp.set_preferences({
     }
 })
 
-lsp.on_attach(function(client, bufnr)
-    local opts = { buffer = bufnr, remap = false }
+lsp.on_attach(function(client, buf)
+    local opts = { buffer = buf, remap = false }
 
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
