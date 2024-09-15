@@ -39,7 +39,6 @@ return require('packer').startup(function(use)
     use("tpope/vim-fugitive")
     use("nvim-treesitter/nvim-treesitter-context");
     use("wakatime/vim-wakatime");
-    use("mfussenegger/nvim-jdtls");
     use("mfussenegger/nvim-dap");
 
     use {
@@ -70,5 +69,4 @@ return require('packer').startup(function(use)
     use("github/copilot.vim")
     use("eandrju/cellular-automaton.nvim")
     use("laytan/cloak.nvim")
-    use({ 'sakhnik/nvim-gdb', branch = 'master' })
 end)

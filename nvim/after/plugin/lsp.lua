@@ -5,7 +5,6 @@ lsp.preset("recommended")
 lsp.ensure_installed({
     'clangd',
     'lua_ls',
-    'jdtls',
 })
 
 -- Fix Undefined global 'vim'
