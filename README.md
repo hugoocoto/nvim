@@ -11,6 +11,10 @@ by some plugins. You can remove those plugins by removing it
 from .config/nvim/lua/hugo/packer.lua and reloading the
 packages.
 
+> [!CAOUTION]
+> If installation script dont install packages (too many
+> errors at nvim start), reload packages.
+
 ### How to update - reload packages
 
 Go to .config/nvim/lua/hugo/packer.lua and do the following

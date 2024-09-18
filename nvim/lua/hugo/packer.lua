@@ -40,7 +40,16 @@ return require('packer').startup(function(use)
     use("nvim-treesitter/nvim-treesitter-context");
     use("wakatime/vim-wakatime");
     use("mfussenegger/nvim-dap");
+    use({
+        "epwalsh/obsidian.nvim",
+        tag = "*", -- recommended, use latest release instead of latest commit
+        requires = {
+            -- Required.
+            "nvim-lua/plenary.nvim",
 
+            -- see below for full list of optional dependencies 👇
+        },
+    })
     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',

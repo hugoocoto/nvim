@@ -31,3 +31,5 @@ vim.opt.foldmethod = 'marker'
 
 vim.opt.termguicolors = true
 
+vim.opt.conceallevel = 2
+
