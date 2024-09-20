@@ -2,18 +2,21 @@
 
 Nvim config with installation script.
 
-> [!NOTE]
-> Despite installation script shows some errors,
-> nvim config is set correctly.
+### Quick setup
+
+``` sh
+git clone https://github.com/hugocotoflorez/nvim
+cd nvim
+./install.sh
+```
+
+You should have your neovim set. Open nvim to check. If some
+packages where not be installed, reload packages.
 
 Errors in the status bar reports user actions required
 by some plugins. You can remove those plugins by removing it
 from .config/nvim/lua/hugo/packer.lua and reloading the
 packages.
-
-> [!CAOUTION]
-> If installation script dont install packages (too many
-> errors at nvim start), reload packages.
 
 ### How to update - reload packages
 
