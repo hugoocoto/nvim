@@ -18,6 +18,14 @@ by some plugins. You can remove those plugins by removing it
 from .config/nvim/lua/hugo/packer.lua and reloading the
 packages.
 
+### First steps
+
+- 1: `Remove wakatime if not needed`: Go to .config/nvim/lua/hugo/packer and
+remove the line with use ... wakatime ...
+- 2: `Remove Obsidian if not needed: Go to .config/nvim/after/plugin and delete
+obsidian.lua. Then go to .config/nvim/lua/hugo/packer.lua and remove the use({...})
+which contains ...obsidian..
+
 ### How to update - reload packages
 
 Go to .config/nvim/lua/hugo/packer.lua and do the following
