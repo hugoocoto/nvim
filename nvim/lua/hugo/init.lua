@@ -1,6 +1,7 @@
 
 require("hugo.set")
 require("hugo.remap")
+require("hugo.packer")
 
 
 local augroup = vim.api.nvim_create_augroup

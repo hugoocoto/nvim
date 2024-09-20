@@ -19,12 +19,12 @@ if [ -d "$CONFIG_NVIM" ]; then
     fi
 fi
 
-echo "Installing packer"
+echo "[+] Installing packer"
 if git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-    ~/.local/share/nvim/site/pack/packer/start/packer.nvim; then
+    ~/.local/share/nvim/site/pack/packer/start/packer.nvim > ./log 2>&1 ; then
     echo "[+] Installed"
 else
-    echo "[-] Error installing packer">&2
+    echo "[-] Error installing packer"
 fi
 
 
@@ -47,11 +47,12 @@ fi
 
 # Instalar paquetes usando Packer
 echo "[+] Installing packages"
-if ! nvim --headless -c "lua require(\"packer\").install()" -c "qa" $NVIM_PACKER +q; then
+if ! nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > ./log 2>&1 ; then
     echo "[-] Error sourcing packer config" >&2
-    exit 1
+
+else
+    echo "[+] Packages installed and compiled successfully."
 fi
-echo "[+] Packages installed and compiled successfully."
 
 echo "[+] Copying after folder"
 if cp -r "$NEW_NVIM_FOLDER/after" "$CONFIG_NVIM/after" ; then
