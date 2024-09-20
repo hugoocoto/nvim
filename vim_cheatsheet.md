@@ -74,18 +74,6 @@
 - `?<q>`: Inverted search for 'q'.
 - `*`: Insert the word.
 
-**Debugger**
-- `<leader>dd`: Start debugging session
-- `:GdbRun`: Run program
-- `:Gdb exit`: Exit session
-- `<Esc>C-w k`: Go to program
-- `n`: next
-- `s`: step
-- `f`: finish
-- `c`: continue
-- `u`: until
-- `b`: breakpoint
-
 **Visual Mode Movement Mappings**
 - `v J`: Move selection down.
 - `v K`: Move selection up.
@@ -100,7 +88,6 @@
 **Other Commands**
 - `n <leader>w`: Save all files.
 - `n <leader>q`: Save all files and quit.
-- `n <leader>tt`: Toggle transparency.
 - `n <leader>c`: Insert // at first word.
 - `v U`: Change section to uppercase.
 - `v u`: Change section to lowercase.
