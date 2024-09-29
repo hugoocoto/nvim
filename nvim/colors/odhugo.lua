@@ -92,7 +92,7 @@ vim.api.nvim_set_hl(0, "Identifier", { fg = c.white }) -- Identificadores como n
 vim.api.nvim_set_hl(0, "Delimiter", { fg = c.white })  -- Delimitadores como `;`, `,`, `.`.
 
 -- Comentarios y documentación
-vim.api.nvim_set_hl(0, "Comment", { fg = c.br_black, italic = true })   -- Comentarios en el código.
+vim.api.nvim_set_hl(0, "Comment", { fg = c.br_black, italic = true })    -- Comentarios en el código.
 vim.api.nvim_set_hl(0, "DocComment", { fg = c.br_black, italic = true }) -- Comentarios de documentación.
 
 -- Números de línea
@@ -125,6 +125,13 @@ vim.api.nvim_set_hl(0, "@type", defaults.types)                  -- Tipos de dat
 vim.api.nvim_set_hl(0, "@type.builtin", defaults.types)          -- Tipos de datos incorporados.
 vim.api.nvim_set_hl(0, "@tag", { fg = c.yellow })                -- Etiquetas como las de HTML.
 vim.api.nvim_set_hl(0, "@tag.attribute", { fg = c.yellow })      -- Atributos en etiquetas HTML.
+vim.api.nvim_set_hl(0, "@markup", { fg = c.white })
+vim.api.nvim_set_hl(0, "@markup.strong", { fg = c.yellow, bold = true })
+vim.api.nvim_set_hl(0, "@markup.italic", { fg = c.white, italic = true })
+vim.api.nvim_set_hl(0, "@markup.strikethrough", { fg = c.green, strikethrough = true })
+vim.api.nvim_set_hl(0, "@markup.underline", { fg = c.green })
+vim.api.nvim_set_hl(0, "@markup.heading", { fg = c.magenta })
+vim.api.nvim_set_hl(0, "@markup.link", { fg = c.blue })
 
 -- Configuración de LSP
 vim.api.nvim_set_hl(0, "LspReferenceText", { bg = c.br_black })                            -- Resaltar referencias de texto.

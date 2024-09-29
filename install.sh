@@ -31,7 +31,7 @@ fi
 # Copiar la nueva carpeta
 echo "[+] Copying $NEW_NVIM_FOLDER to $CONFIG_NVIM"
 if cp -r "$NEW_NVIM_FOLDER" "$CONFIG_NVIM" ; then
-    echo "[+] Config moved"
+    echo "[+] Config copied"
 else
     echo "[-] Error moving $NEW_NVIM_FOLDER to $CONFIG_NVIM" >&2
     exit 1
