@@ -1,0 +1,145 @@
+/* General settings */
+* {
+    background-color: #282c34; /* Background color */
+    color: #abb2bf; /* Foreground color for normal text */
+}
+body {
+    background-color: #282c34; /* Background color */
+    color: #abb2bf; /* Foreground color for normal text */
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Headings */
+h1 {
+    color: #c678dd; /* Magenta */
+    font-size: 2em;
+    border-bottom: 2px solid #c678dd; /* Underline */
+}
+
+h2 {
+    color: #61afef; /* Blue */
+    font-size: 1.75em;
+    border-bottom: 2px solid #61afef;
+}
+
+h3 {
+    color: #98c379; /* Green */
+    font-size: 1.5em;
+}
+
+h4 {
+    color: #d19a66; /* Yellow */
+    font-size: 1.25em;
+}
+
+h5, h6 {
+    color: #abb2bf; /* Foreground color */
+    font-size: 1em;
+}
+
+/* Links */
+a {
+    color: #61afef; /* Blue */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Code blocks and inline code */
+pre, code {
+    background-color: #1e2127; /* Black normal */
+    color: #abb2bf; /* Foreground */
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: "Courier New", monospace;
+}
+
+pre {
+    padding: 10px;
+    overflow-x: auto;
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid #d19a66; /* Yellow */
+    padding-left: 10px;
+    margin-left: 0;
+    color: #abb2bf; /* Foreground */
+    background-color: #1e2127; /* Black normal */
+}
+
+/* Lists */
+ul, ol {
+    color: #ffffff; /* White for list text */
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+ul li::marker, ol li::marker {
+    color: #abb2bf; /* Foreground for bullet points and numbers */
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    color: #ffffff; /* White for table text */
+}
+
+th, td {
+    border: 1px solid #abb2bf; /* Foreground for table borders */
+    padding: 10px;
+    text-align: left;
+}
+
+thead {
+    background-color: #1e2127; /* Black normal for header */
+}
+
+tbody {
+    background-color: #282c34; /* Background for rows */
+}
+
+/* Horizontal rules */
+hr {
+    border: 1px solid #abb2bf; /* Foreground */
+    margin: 20px 0;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Bold and italic text */
+strong {
+    color: #d19a66;
+    font-weight: bold;
+}
+
+em {
+    color: #c678dd; /* Magenta */
+    font-style: italic;
+}
+
+/* Block elements (paragraphs, etc.) */
+p {
+    margin-bottom: 1em;
+}
+
+/* Footnotes */
+sup {
+    color: #56b6c2; /* Cyan */
+}
+
+/* Inline highlights (mark) */
+mark {
+    background-color: #56b6c2;
+    color: #282c34; /* Background for text inside the highlight */
+

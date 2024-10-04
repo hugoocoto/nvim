@@ -40,6 +40,11 @@ return require('packer').startup(function(use)
     use("nvim-treesitter/nvim-treesitter-context");
     use("wakatime/vim-wakatime");
     use("mfussenegger/nvim-dap");
+    -- install without yarn or npm
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+    })
     use({
         "epwalsh/obsidian.nvim",
         tag = "*", -- recommended, use latest release instead of latest commit

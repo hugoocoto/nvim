@@ -7,6 +7,8 @@ vim.keymap.set("n", "<leader>tp", ":lua require(\"precognition\").toggle()<cr>:H
 vim.keymap.set("n", "<leader>c", "_i//<Esc>_")
 vim.keymap.set("v", "<leader>c", "c/*\n/<Esc>kp")
 
+vim.keymap.set("n", "<leader>mm", [[:MarkdownPreviewToggle<cr>]])
+
 vim.keymap.set("n", "<leader>tt", ":lua toggle_transparency()<CR>")
 
 vim.keymap.set("n", "<leader>do", ":lua vim.cmd.colorscheme('odhugotty')<cr>")
@@ -17,7 +19,8 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z")
 
-vim.keymap.set("n", "md", ":Markview<CR>")
+-- open markdown list-title format
+vim.keymap.set("n", "<leader>-", "<Esc>^i- ****:<Esc>2hi")
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")

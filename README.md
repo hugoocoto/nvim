@@ -26,6 +26,10 @@ remove the line with use ... wakatime ...
 obsidian.lua. Then go to .config/nvim/lua/hugo/packer.lua and remove the use({...})
 which contains ...obsidian..
 
+> [!CAUTION]
+> Some ubuntu users report issues with clipboard. It can be fixed
+> by installing wl-clipboard: `apt install wl-clipboard`.
+
 ### How to update - reload packages
 
 Go to .config/nvim/lua/hugo/packer.lua and do the following

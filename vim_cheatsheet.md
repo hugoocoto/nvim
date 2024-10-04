@@ -27,10 +27,10 @@
 - `gg`: Jump to the top.
 - `G`: Jump to the bottom.
 - `:<n>`: Jump to line 'n'.
+- `<n>G`: Jump to line 'n'.
 - `%`: Move to the matching symbol.
-- `n vi<c>`: Select between <c>.
-- `n di<c>`: Delete between <c>.
-- `n ci<c>`: Change between <c>.
+- `C-O`: Move backward in jump list.
+- `C-I`: Move forward in jump list.
 
 **Copy, Paste, Delete**
 - `d`: Delete.
@@ -48,6 +48,9 @@
 - `n D`: Delete from the current line to the end in normal mode.
 - `n,v <leader>d`: Cut and delete content in normal and visual modes.
 - `n C-a`: Select all file
+- `n vi<c>`: Select between <c>.
+- `n di<c>`: Delete between <c>.
+- `n ci<c>`: Change between <c>.
 
 **Change Mode**
 - `a`: Insert mode, after.
