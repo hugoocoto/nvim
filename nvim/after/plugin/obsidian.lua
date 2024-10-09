@@ -33,7 +33,7 @@ require("obsidian").setup({
 
     -- Alternatively - and for backwards compatibility - you can set 'dir' to a single path instead of
     -- 'workspaces'. For example:
-    -- dir = "~/vaults/work",
+   -- dir = "~/vaults/work",
 
     -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
     -- levels defined by "vim.log.levels.*".

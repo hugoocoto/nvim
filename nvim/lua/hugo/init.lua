@@ -1,4 +1,3 @@
-
 require("hugo.set")
 require("hugo.remap")
 require("hugo.packer")
@@ -22,13 +21,21 @@ autocmd('TextYankPost', {
             higroup = 'IncSearch',
             timeout = 40,
         })
-        end
+    end
 })
 
-autocmd({"BufWritePre"}, {
+autocmd({ "BufWritePre" }, {
     group = ThePrimeagenGroup,
     pattern = "*",
     command = [[%s/\s\+$//e]],
+})
+
+autocmd({ "BufWinEnter" }, {
+    pattern = { '*.md' },
+    callback = function()
+        vim.opt.wrap = true
+        vim.opt.linebreak = true
+    end,
 })
 
 vim.g.netrw_browse_split = 0
