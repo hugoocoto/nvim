@@ -33,7 +33,7 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
-vim.keymap.set("n", "<C-a>", "ggVG")
+vim.keymap.set("n", "<C-a>", [[ggVG"+y<cr><C-o><C-o>]])
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)

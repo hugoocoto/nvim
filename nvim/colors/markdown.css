@@ -1,41 +1,52 @@
 /* General settings */
 * {
-    background-color: #282c34; /* Background color */
-    color: #abb2bf; /* Foreground color for normal text */
+    background-color: rgb(40,44,52) !important; /* Background color */
+    color: #abb2bf ; /* Foreground color for normal text */
+
 }
+
 body {
-    background-color: #282c34; /* Background color */
-    color: #abb2bf; /* Foreground color for normal text */
     font-family: Arial, sans-serif;
     line-height: 1.6;
     padding: 20px;
 }
 
+/* Bold and italic text */
+strong {
+    color: #d19a66 ;
+    font-weight: bold;
+}
+
+em {
+    color: #c678dd; /* Magenta */
+    font-style: italic;
+}
+
 /* Headings */
 h1 {
-    color: #c678dd; /* Magenta */
+    color: #c678dd !important; /* Magenta */
     font-size: 2em;
-    border-bottom: 2px solid #c678dd; /* Underline */
+    border-bottom: 2px #c678dd; /* Underline */
 }
 
 h2 {
-    color: #61afef; /* Blue */
+    color: #61afef !important; /* Blue */
     font-size: 1.75em;
     border-bottom: 2px solid #61afef;
 }
 
 h3 {
-    color: #98c379; /* Green */
+    color: #98c379 !important; /* Green */
     font-size: 1.5em;
 }
 
 h4 {
-    color: #d19a66; /* Yellow */
+    color: #d19a66 !important; /* Yellow */
     font-size: 1.25em;
 }
 
 h5, h6 {
-    color: #abb2bf; /* Foreground color */
+    color: #abb2bf !important; /* Foreground color */
     font-size: 1em;
 }
 
@@ -117,16 +128,6 @@ img {
     height: auto;
 }
 
-/* Bold and italic text */
-strong {
-    color: #d19a66;
-    font-weight: bold;
-}
-
-em {
-    color: #c678dd; /* Magenta */
-    font-style: italic;
-}
 
 /* Block elements (paragraphs, etc.) */
 p {
