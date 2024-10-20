@@ -31,6 +31,7 @@
 - `%`: Move to the matching symbol.
 - `C-O`: Move backward in jump list.
 - `C-I`: Move forward in jump list.
+- zz: Move cursor line to screen middle.
 
 **Copy, Paste, Delete**
 - `d`: Delete.
@@ -99,6 +100,7 @@
 - `v <n> C-X`: Subtract n to highlighted number(s).
 - `v <n> g C-A`: Add n to highlighted number(s) (stair addition)
 - `v <n> g C-X`: Subtract n to highlighted number(s).
+- v <leader>": Surronding ". Same for `(`, `[`, `{`, `'`. Dont work for V selection
 
 **Harpoon Commands**
 - `n <C-e>`: Toggle the Harpoon quick menu.
