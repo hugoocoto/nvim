@@ -36,6 +36,7 @@ lsp.set_preferences({
     }
 })
 
+
 lsp.on_attach(function(client, buf)
     local opts = { buffer = buf, remap = false }
 
@@ -56,3 +57,10 @@ lsp.setup()
 vim.diagnostic.config({
     virtual_text = true
 })
+
+require("lspconfig").clangd.setup {
+    cmd = {
+        "clangd",
+        "--offset-encoding=utf-16",
+    },
+}
