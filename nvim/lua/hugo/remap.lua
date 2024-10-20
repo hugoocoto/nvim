@@ -47,6 +47,12 @@ vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set('x', '<leader>r', ':<C-u>lua InputReplace()<CR>', { noremap = true, silent = true })
 vim.keymap.set("v", "<leader>x", ":'<,'>Refactor extract ")
 
+vim.keymap.set("v", "<leader>\"", [[c""<Esc>hp]])
+vim.keymap.set("v", "<leader>'", [[c''<Esc>hp]])
+vim.keymap.set("v", "<leader>(", [[c()<Esc>hp]])
+vim.keymap.set("v", "<leader>[", [[c[]<Esc>hp]])
+vim.keymap.set("v", "<leader>{", [[c{}<Esc>hp]])
+
 function InputReplace()
     local old_word = vim.fn.input('Replace: ')
     local new_word = vim.fn.input('With: ')
