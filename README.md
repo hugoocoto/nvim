@@ -24,8 +24,8 @@ packages.
 
 [video](https://youtu.be/hmRQnlduRI0?si=D3b94qrLLSUw36vj)
 
-- 1: `Remove wakatime if not needed`: Go to .config/nvim/lua/hugo/packer and remove the line with `use ..wakatime..`
-- 2: `Remove Obsidian if not needed`: Go to .config/nvim/after/plugin and delete obsidian.lua. Then go to .config/nvim/lua/hugo/packer.lua and remove the `use({...})` which contains ..obsidian..
+- 1 **Remove wakatime if not needed**: Go to .config/nvim/lua/hugo/packer and remove the line with `use ..wakatime..`
+- 2 **Remove Obsidian if not needed**: Go to .config/nvim/after/plugin and delete obsidian.lua. Then go to .config/nvim/lua/hugo/packer.lua and remove the `use({...})` which contains ..obsidian..
 
 > [!CAUTION]
 > Some ubuntu users report issues with clipboard. It can be fixed by installing wl-clipboard: `apt install wl-clipboard`.
