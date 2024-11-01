@@ -1,4 +1,5 @@
 vim.opt.termguicolors = true
+
 local c = {
     -- Color de fondo.
     bg       = '#282c35', -- Color de fondo.
@@ -35,10 +36,17 @@ vim.api.nvim_set_hl(0, "Error", { fg = c.red })                    -- Mensajes d
 vim.api.nvim_set_hl(0, "WarningMsg", { fg = c.yellow })            -- Mensajes de advertencia.
 
 -- Pmenu para ventanas flotantes
-vim.api.nvim_set_hl(0, "Pmenu", { fg = c.fg, bg = c.bg })                   -- Menú flotante de autocompletado.
-vim.api.nvim_set_hl(0, "PmenuSel", { fg = c.fg, bg = c.black })             -- Selección en el menú flotante.
-vim.api.nvim_set_hl(0, "PmenuSbar", { bg = defaults.bg })                   -- Barra de desplazamiento en el menú flotante.
-vim.api.nvim_set_hl(0, "PmenuThumb", { bg = defaults.bg })                  -- "Thumb" de la barra de desplazamiento.
+vim.api.nvim_set_hl(0, "Pmenu", { fg = c.fg, bg = c.bg})          -- Menú flotante de autocompletado.
+vim.api.nvim_set_hl(0, "PmenuSel", { fg = c.fg, bg = c.black })    -- Selección en el menú flotante.
+vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "NONE", fg = "NONE" })  -- Barra de desplazamiento en el menú flotante.
+vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "NONE", fg = "NONE" }) -- "Thumb" de la barra de desplazamiento.
+
+-- Resaltados de nvim-cmp
+vim.api.nvim_set_hl(0, "CmpItemAbbr", { fg = c.fg })                   -- Texto abreviado del ítem en el menú de autocompletado.
+vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = c.fg, bold = true }) -- Texto que coincide con lo escrito en el menú de autocompletado.
+vim.api.nvim_set_hl(0, "CmpItemKind", { fg = c.blue })                 -- Tipo del ítem (función, variable, etc.) en el menú de autocompletado.
+vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = c.fg })                   -- Origen del ítem (menú o fuente) en el menú de autocompletado.
+
 -- Fondo transparente para componentes adicion
 vim.api.nvim_set_hl(0, "Whitespace", { fg = c.br_black, bg = defaults.bg }) -- Espacios en blanco visibles.
 vim.api.nvim_set_hl(0, "NonText", { fg = c.br_black, bg = defaults.bg })    -- Caracteres no textuales como el `~` al final de las líneas vacías.
@@ -49,7 +57,7 @@ vim.api.nvim_set_hl(0, "StatusLine", { fg = c.white, bg = c.black })       -- L�
 vim.api.nvim_set_hl(0, "FoldColumn", { bg = "NONE" })                      -- Columna de plegado con fondo transparente.
 vim.api.nvim_set_hl(0, "Folded", { bg = "NONE" })                          -- Texto plegado con fondo transparente.
 vim.api.nvim_set_hl(0, "SignColumn", { fg = c.white, bg = defaults.bg })   -- Columna de signos con fondo especificado.
-vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#292d35" })                  -- Columna de color para resaltar la columna actual.
+vim.api.nvim_set_hl(0, "ColorColumn", { bg = c.black })                    -- Columna de color para resaltar la columna actual.
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = c.br_black, bg = c.black })  -- Línea de estado inactiva.
 vim.api.nvim_set_hl(0, "VertSplit", { fg = c.br_black, bg = c.br_black })  -- Separación vertical entre ventanas.
 vim.api.nvim_set_hl(0, "WinSeparator", { fg = c.br_black, bg = c.bg })     -- Separadores de ventana.

@@ -2,6 +2,13 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
+require("lspconfig").clangd.setup {
+    cmd = {
+        "clangd",
+        "--offset-encoding=utf-16",
+    },
+}
+
 lsp.ensure_installed({
     'clangd',
     'lua_ls',
@@ -18,6 +25,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
     ["<C-Space>"] = cmp.mapping.complete(),
 })
+
 
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
@@ -58,9 +66,3 @@ vim.diagnostic.config({
     virtual_text = true
 })
 
-require("lspconfig").clangd.setup {
-    cmd = {
-        "clangd",
-        "--offset-encoding=utf-16",
-    },
-}
