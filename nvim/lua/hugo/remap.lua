@@ -53,8 +53,24 @@ vim.keymap.set("v", "<leader>(", [[c()<Esc>hp]])
 vim.keymap.set("v", "<leader>[", [[c[]<Esc>hp]])
 vim.keymap.set("v", "<leader>{", [[c{}<Esc>hp]])
 
+
+Is_wrapping_on = false
+function Toggle_wrapping()
+        if (Is_wrapping_on) then
+                vim.opt.wrap = false
+                vim.opt.linebreak = false
+                Is_wrapping_on = false
+        else
+                vim.opt.wrap = true
+                vim.opt.linebreak = true
+                Is_wrapping_on = true
+        end
+end
+
+vim.keymap.set('n', '<leader>ll', Toggle_wrapping)
+
 function InputReplace()
-    local old_word = vim.fn.input('Replace: ')
-    local new_word = vim.fn.input('With: ')
-    vim.cmd('\'<,\'>s/' .. old_word .. '/' .. new_word .. '/gI')
+        local old_word = vim.fn.input('Replace: ')
+        local new_word = vim.fn.input('With: ')
+        vim.cmd('\'<,\'>s/' .. old_word .. '/' .. new_word .. '/gI')
 end

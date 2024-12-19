@@ -48,10 +48,10 @@
 - `n Y`: Copy from the current line to the end to the clipboard.
 - `n D`: Delete from the current line to the end in normal mode.
 - `n,v <leader>d`: Cut and delete content in normal and visual modes.
-- `n C-a`: Select all file
 - `n vi<c>`: Select between <c>.
 - `n di<c>`: Delete between <c>.
 - `n ci<c>`: Change between <c>.
+- `n ca<c>`: Change between <c> (included).
 
 **Change Mode**
 - `a`: Insert mode, after.
