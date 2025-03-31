@@ -30,6 +30,19 @@ autocmd({ "BufWritePre" }, {
     command = [[%s/\s\+$//e]],
 })
 
+vim.api.nvim_create_autocmd({"TermOpen", "BufEnter", "BufLeave"}, {
+    callback = function()
+        if vim.bo.buftype == "terminal" then
+            vim.wo.number = false
+            vim.wo.relativenumber = false
+        else
+            vim.wo.number = true
+            vim.wo.relativenumber = true
+        end
+    end,
+})
+
+
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25

@@ -11,3 +11,5 @@ vim.keymap.set('n', '<leader>fD', builtin.lsp_implementations, {})
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
 vim.keymap.set('n', '<leader>ft', builtin.lsp_type_definitions, {})
 vim.keymap.set('n', '<leader>fa', builtin.treesitter,{})
+
+-- require("telescope").load_extension("scope")

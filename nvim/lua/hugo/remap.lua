@@ -3,16 +3,18 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>w", ":wall<CR>")
 vim.keymap.set("n", "<leader>q", ":wall<CR>:qall<CR>")
 
-vim.keymap.set("n", "<leader>tp", ":lua require(\"precognition\").toggle()<cr>:HardTimeToggle<cr>")
 vim.keymap.set("n", "<leader>c", "_i//<Esc>_")
 vim.keymap.set("v", "<leader>c", "c/*\n/<Esc>kp")
 
 vim.keymap.set("n", "<leader>mm", [[:MarkdownPreviewToggle<cr>]])
 
-vim.keymap.set("n", "<leader>tt", ":lua toggle_transparency()<CR>")
-
 vim.keymap.set("n", "<leader>do", ":lua vim.cmd.colorscheme('odhugotty')<cr>")
 vim.keymap.set("n", "<leader>od", ":lua vim.cmd.colorscheme('odhugo')<cr>")
+
+vim.keymap.set("n", "<TAB>", ":cnext<cr>")
+vim.keymap.set("n", "<S-TAB>", ":cprev<cr>")
+vim.keymap.set("n", "<leader>t", ":tabnew | terminal zsh<CR>a", { noremap = true, silent = true })
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
