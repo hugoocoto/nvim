@@ -1,14 +1,5 @@
 vim.g.mapleader = " "
 
-vim.keymap.set("i", "<CR>", function()
-  if vim.fn.pumvisible() == 1 then
-    return vim.api.nvim_replace_termcodes("<C-y>", true, true, true)
-  else
-    return vim.api.nvim_replace_termcodes("<CR>", true, true, true)
-  end
-end, { expr = true, noremap = true })
-
-
 vim.keymap.set("n", "<leader>w", ":wall<CR>")
 vim.keymap.set("n", "<leader>q", ":wall<CR>:qall<CR>")
 
@@ -45,25 +36,33 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set("n", "<C-a>", [[ggVG"+y<cr><C-o><C-o>]])
-
 vim.keymap.set("n", "Q", "<nop>")
+
+vim.keymap.set("n", "grn", "<nop>")
+vim.keymap.set("n", "gra", "<nop>")
+vim.keymap.set("n", "grr", "<nop>")
+vim.keymap.set("n", "gri", "<nop>")
+vim.keymap.set("n", "gO", "<nop>")
+vim.keymap.set("n", "<C-s>", "<nop>")
+
 vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
+vim.keymap.set({"n","v"}, "ga", vim.lsp.buf.code_action)
+vim.keymap.set("n", "grr", vim.lsp.buf.references)
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "gs", vim.lsp.buf.document_symbol)
+vim.keymap.set("n", "<C-h>", vim.lsp.buf.signature_help)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set('x', '<leader>r', ':<C-u>lua InputReplace()<CR>', { noremap = true, silent = true })
 vim.keymap.set("v", "<leader>x", ":'<,'>Refactor extract ")
-
-vim.keymap.set("v", "<leader>\"", [[c""<Esc>hp]])
-vim.keymap.set("v", "<leader>'", [[c''<Esc>hp]])
-vim.keymap.set("v", "<leader>(", [[c()<Esc>hp]])
-vim.keymap.set("v", "<leader>[", [[c[]<Esc>hp]])
-vim.keymap.set("v", "<leader>{", [[c{}<Esc>hp]])
-
+vim.keymap.set("v", "<leader>X", ":'<,'>Refactor extract_to_file ")
 
 Is_wrapping_on = false
 function Toggle_wrapping()
