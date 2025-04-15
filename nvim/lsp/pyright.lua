@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---@brief
 ---
 -- https://github.com/microsoft/pyright
@@ -25,10 +24,4 @@ return {
                         },
                 },
         },
-=======
-return {
-        cmd = { 'pyright' },
-        filetypes = { 'py' },
-        root_markers = { '.git', 'bin', 'include' }
->>>>>>> origin/HEAD
 }
