@@ -50,42 +50,7 @@ return require('packer').startup(function(use)
                 "iamcco/markdown-preview.nvim",
                 run = function() vim.fn["mkdp#util#install"]() end,
         })
-        use({
-                "epwalsh/obsidian.nvim",
-                tag = "*", -- recommended, use latest release instead of latest commit
-                requires = {
-                        -- Required.
-                        "nvim-lua/plenary.nvim",
 
-                        -- see below for full list of optional dependencies 👇
-                },
-        })
-        use {
-                'VonHeikemen/lsp-zero.nvim',
-                branch = 'v1.x',
-                requires = {
-                        -- LSP Support
-                        { 'neovim/nvim-lspconfig' },
-                        { 'williamboman/mason.nvim' },
-                        { 'williamboman/mason-lspconfig.nvim' },
-
-                        -- Autocompletion
-                        { 'hrsh7th/nvim-cmp' },
-                        { 'hrsh7th/cmp-buffer' },
-                        { 'hrsh7th/cmp-path' },
-                        { 'saadparwaiz1/cmp_luasnip' },
-                        { 'hrsh7th/cmp-nvim-lsp' },
-                        { 'hrsh7th/cmp-nvim-lua' },
-
-                        -- Snippets
-                        { 'L3MON4D3/LuaSnip' },
-                        { 'rafamadriz/friendly-snippets' },
-                }
-        }
-        use("tris203/precognition.nvim")
-        use("takac/vim-hardtime")
-        use("folke/zen-mode.nvim")
-        use("github/copilot.vim")
-        use("eandrju/cellular-automaton.nvim")
         use("laytan/cloak.nvim")
+        use({ 'williamboman/mason.nvim' })
 end)

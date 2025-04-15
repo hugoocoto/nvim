@@ -1,66 +1,92 @@
-local lsp = require("lsp-zero")
+vim.lsp.enable('luals');
+vim.lsp.enable('clangd');
+vim.lsp.enable('pyright');
 
-
--- require("lspconfig").clangd.setup({
---         cmd = {
---                 "clangd",
+-- -- ========== LSP ==========
+-- local lspconfig = require('lspconfig')
+-- local mason = require("mason")
+-- local mason_lspconfig = require("mason-lspconfig")
+--
+-- mason.setup()
+-- mason_lspconfig.setup({
+--         ensure_installed = { "clangd", "lua_ls" },
+--         automatic_installation = true,
+-- })
+--
+-- -- Capabilities para nvim-cmp
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+--
+-- -- Función para asignar atajos cuando se conecta un servidor
+-- local on_attach = function(_, bufnr)
+--         local map = function(mode, lhs, rhs)
+--                 vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, remap = false })
+--         end
+--
+--         map("n", "gd", vim.lsp.buf.definition)
+--         map("n", "K", vim.lsp.buf.hover)
+--         map("n", "<leader>vws", vim.lsp.buf.workspace_symbol)
+--         map("n", "<leader>vd", vim.diagnostic.open_float)
+--         map("n", "[d", vim.diagnostic.goto_next)
+--         map("n", "]d", vim.diagnostic.goto_prev)
+--         map("n", "<leader>vca", vim.lsp.buf.code_action)
+--         map("n", "<leader>vrr", vim.lsp.buf.references)
+--         map("n", "<leader>vrn", vim.lsp.buf.rename)
+--         map("i", "<C-h>", vim.lsp.buf.signature_help)
+-- end
+--
+-- -- clangd con codificación utf-16
+-- -- lspconfig.clangd.setup({
+-- --         cmd = { "clangd", "--offset-encoding=utf-16" },
+-- --         on_attach = on_attach,
+-- --         capabilities = capabilities,
+-- -- })
+--
+-- -- lua_ls con ajuste para globals
+-- lspconfig.lua_ls.setup({
+--         on_attach = on_attach,
+--         capabilities = capabilities,
+--         settings = {
+--                 Lua = {
+--                         diagnostics = {
+--                                 globals = { "vim" },
+--                         },
+--                 },
 --         },
 -- })
+--
+-- -- ========== DIAGNÓSTICOS ==========
+-- vim.diagnostic.config({
+--         virtual_text = true,
+-- })
 
-lsp.preset("recommended")
-
-lsp.ensure_installed({
-        'clangd',
-        'lua_ls',
-})
-
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
-
-local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-        ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-        ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-        ["<C-Space>"] = cmp.mapping.complete(),
-})
-
-
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
-lsp.setup_nvim_cmp({
-        mapping = cmp_mappings
-})
-
-lsp.set_preferences({
-        suggest_lsp_servers = false,
-        sign_icons = {
-                error = 'E',
-                warn = 'W',
-                hint = 'H',
-                info = 'I'
-        }
-})
-
-lsp.on_attach(function(client, buf)
-        local opts = { buffer = buf, remap = false }
-
-        vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-        vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-        vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-        vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-        vim.keymap.set("n", "[d", function() vim.diagnostic.next() end, opts)
-        vim.keymap.set("n", "]d", function() vim.diagnostic.prev() end, opts)
-        vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-        vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-        vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-        vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-end)
-
-lsp.setup()
-
-vim.diagnostic.config({
-        virtual_text = true
-})
+-- ========== CMP (Autocompletado) ==========
+-- local cmp = require("cmp")
+-- local luasnip = require("luasnip")
+--
+-- require("luasnip.loaders.from_vscode").lazy_load()
+--
+-- local cmp_select = { behavior = cmp.SelectBehavior.Select }
+--
+-- cmp.setup({
+--         snippet = {
+--                 expand = function(args)
+--                         luasnip.lsp_expand(args.body)
+--                 end,
+--         },
+--         mapping = {
+--                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+--                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+--                 ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+--                 ['<C-Space>'] = cmp.mapping.complete(),
+--                 -- puedes descomentar si quieres usar tab
+--                 -- ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+--                 -- ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+--         },
+--         sources = cmp.config.sources({
+--                 { name = "nvim_lsp" },
+--                 { name = "luasnip" },
+--                 { name = "buffer" },
+--                 { name = "path" },
+--         }),
+-- })

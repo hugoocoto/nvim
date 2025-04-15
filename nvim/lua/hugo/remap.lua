@@ -1,5 +1,14 @@
 vim.g.mapleader = " "
 
+vim.keymap.set("i", "<CR>", function()
+  if vim.fn.pumvisible() == 1 then
+    return vim.api.nvim_replace_termcodes("<C-y>", true, true, true)
+  else
+    return vim.api.nvim_replace_termcodes("<CR>", true, true, true)
+  end
+end, { expr = true, noremap = true })
+
+
 vim.keymap.set("n", "<leader>w", ":wall<CR>")
 vim.keymap.set("n", "<leader>q", ":wall<CR>:qall<CR>")
 

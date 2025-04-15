@@ -1,9 +1,11 @@
 vim.opt.guicursor = ""
-
 vim.opt.mouse = ""
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
+
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
 vim.opt.tabstop = 8
 vim.opt.softtabstop = 8
