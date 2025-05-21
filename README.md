@@ -4,6 +4,11 @@ Nvim config with installation script.
 
 ### Quick setup
 
+>> [!CAUTION]
+> After nvim 0.11 installation script does not work. Im planning to
+> fix it when I have time. It is possible to use a previous commit to
+> install it.
+
 > [!NOTE]
 > Nvim version have to be 0.9+
 ``` sh

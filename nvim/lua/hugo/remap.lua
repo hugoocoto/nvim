@@ -6,7 +6,8 @@ vim.keymap.set("n", "<leader>q", ":wall<CR>:qall<CR>")
 vim.keymap.set("n", "<leader>c", "_i//<Esc>_")
 vim.keymap.set("v", "<leader>c", "c/*\n/<Esc>kp")
 
-vim.keymap.set("n", "<leader>mm", [[:MarkdownPreviewToggle<cr>]])
+-- follow link (probably the most useful remap I ever done)
+vim.keymap.set("n", "<leader>fl", "yiW:!xdg-open <C-r>\" & <CR><CR>", {silent = true})
 
 vim.keymap.set("n", "<leader>do", ":lua vim.cmd.colorscheme('odhugotty')<cr>")
 vim.keymap.set("n", "<leader>od", ":lua vim.cmd.colorscheme('odhugo')<cr>")

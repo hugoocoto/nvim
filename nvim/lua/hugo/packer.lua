@@ -64,10 +64,23 @@ require("lazy").setup({
         -- Markdown preview
         {
                 "iamcco/markdown-preview.nvim",
-                build = function() vim.fn["mkdp#util#install"]() end,
-                ft = { "markdown" }
+                cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+                build = function()
+                        require("lazy").load({ plugins = { "markdown-preview.nvim" } })
+                        vim.fn["mkdp#util#install"]()
+                end,
+                keys = {
+                        {
+                                "<leader>mm",
+                                ft = "markdown",
+                                "<cmd>MarkdownPreviewToggle<cr>",
+                                desc = "Markdown Preview",
+                        },
+                },
+                config = function()
+                        vim.cmd([[do FileType]])
+                end,
         },
-
         -- LSP config
         { "neovim/nvim-lspconfig" },
 

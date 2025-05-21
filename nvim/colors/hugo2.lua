@@ -220,6 +220,7 @@ vim.api.nvim_set_hl(0, "Number", defaults.values)                    --   A numb
 vim.api.nvim_set_hl(0, "Boolean", defaults.values)                   --   A boolean constant: TRUE, false
 vim.api.nvim_set_hl(0, "Float", defaults.values)                     --   A floating point constant: 2.3e10
 vim.api.nvim_set_hl(0, "Identifier", defaults.variables)             -- (*) Any variable name
+vim.api.nvim_set_hl(0, "Variable", defaults.variables)             -- (*) Any variable name
 vim.api.nvim_set_hl(0, "Function", defaults.functions)               --   Function name (also: methods for classes)
 vim.api.nvim_set_hl(0, "Statement", defaults.keywords)               -- (*) Any statement
 vim.api.nvim_set_hl(0, "Conditional", defaults.keywords)             --   if, then, else, endif, switch, etc.
@@ -238,7 +239,7 @@ vim.api.nvim_set_hl(0, "Typedef", defaults.types)                    --   A type
 vim.api.nvim_set_hl(0, "StorageClass", defaults.keywords)            --   static, register, volatile, etc.
 vim.api.nvim_set_hl(0, "Structure", defaults.keywords)               --   struct, union, enum, etc.
 vim.api.nvim_set_hl(0, "Special", defaults.operators)                -- (*) Any special symbol
-vim.api.nvim_set_hl(0, "SpecialChar", { fg = c.fg })                      -- Special character in a constant as \n in strings
+vim.api.nvim_set_hl(0, "SpecialChar", { fg = c.fg })                 -- Special character in a constant as \n in strings
 -- Tag            { }, --   You can use CTRL-] on this
 vim.api.nvim_set_hl(0, "Delimiter", defaults.operators)              -- Special characters as '.', ',' ...
 vim.api.nvim_set_hl(0, "SpecialComment", { fg = c.br_black })        --   Special things inside a comment (e.g. '\n')
@@ -276,7 +277,7 @@ vim.api.nvim_set_hl(0, "ModeMsg", { link = "MsgArea" })                  -- 'sho
 -- MsgSeparator { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
 vim.api.nvim_set_hl(0, "MoreMsg", { fg = c.yellow })                     -- |more-prompt|
 vim.api.nvim_set_hl(0, "NonText", { fg = c.cyan })                       -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-vim.api.nvim_set_hl(0, "NormalFloat", { fg = c.fg, bg = c.bg })          -- Normal text in floating windows.
+vim.api.nvim_set_hl(0, "NormalFloat", { fg = c.fg, bg = c.black })          -- Normal text in floating windows.
 vim.api.nvim_set_hl(0, "FloatBorder", { fg = c.white })
 
 -- NormalNC     { }, -- normal text in non-current windows
@@ -356,6 +357,7 @@ vim.api.nvim_set_hl(0, '@variable', defaults.variables)      -- Variable
 vim.api.nvim_set_hl(0, '@punctuation.bracket', defaults.operators)
 vim.api.nvim_set_hl(0, '@tag', { link = "Label" })
 vim.api.nvim_set_hl(0, '@type', { link = "Type" })               -- Type
+vim.api.nvim_set_hl(0, "@type.builtin", { link = "Type" })       -- Tipos de datos incorporados.
 vim.api.nvim_set_hl(0, '@type.definition', { link = "Typedef" }) -- Typedef
 vim.api.nvim_set_hl(0, '@structure', { link = "Structure" })     -- Structure
 vim.api.nvim_set_hl(0, '@include', { link = "Include" })         -- Include
@@ -368,8 +370,8 @@ vim.api.nvim_set_hl(0, '@keyword.import', { link = "Include" })
 -- vim.api.nvim_set_hl(0, '["@keyword.python"]', { fg = color.magenta })
 -- ["@keyword.lua"] = { fg = color.cyan },
 --  LSP
-vim.api.nvim_set_hl(0, '@lsp.type.parameter', defaults.types)
-vim.api.nvim_set_hl(0, '@lsp.type.variable.lua', defaults.types)
+vim.api.nvim_set_hl(0, '@lsp.type.parameter', defaults.variables)
+vim.api.nvim_set_hl(0, '@lsp.type.variable.lua', defaults.variables)
 
 vim.api.nvim_set_hl(0, 'markdownCode', { fg = c.fg })
 vim.api.nvim_set_hl(0, 'markdownCodeBlock', { fg = c.fg })
@@ -560,6 +562,7 @@ vim.api.nvim_set_hl(0, 'StatusBarDiagnosticError', { fg = c.red, bg = c.bg })
 vim.api.nvim_set_hl(0, 'StatusBarDiagnosticWarn', { fg = c.yellow, bg = c.bg })
 vim.api.nvim_set_hl(0, 'StatusBarDiagnosticInfo', { fg = c.blue, bg = c.bg })
 vim.api.nvim_set_hl(0, 'StatusBarDiagnosticHint', { fg = c.fg, bg = c.bg })
+
 vim.api.nvim_set_hl(0, 'FloatTitle', { fg = c.bg, bg = c.cyan, bold = true })
 vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = c.black })
 vim.api.nvim_set_hl(0, 'IndentBlanklineContextChar', { fg = c.black })
@@ -567,18 +570,18 @@ vim.api.nvim_set_hl(0, 'TodoComment', { fg = c.magenta })
 vim.api.nvim_set_hl(0, 'FixmeComment', { fg = c.magenta })
 vim.api.nvim_set_hl(0, 'HackComment', { fg = c.yellow })
 vim.api.nvim_set_hl(0, 'PriorityComment', { fg = c.yellow })
-vim.api.nvim_set_hl(0, 'MiniStarterSection', { fg = c.fg, bg = c.bg, bold = true })
-vim.api.nvim_set_hl(0, 'MiniStarterFooter', { link = "Comment" })
-vim.api.nvim_set_hl(0, 'ZenBg', { fg = c.fg, bg = c.bg })
-vim.api.nvim_set_hl(0, 'WinShiftMove', { bg = c.bg })
-vim.api.nvim_set_hl(0, 'TabsVsSpaces', { fg = c.fg, underline = true })
-vim.api.nvim_set_hl(0, 'FlashCurrent', { fg = c.bg, bg = c.green, bold = true })
-vim.api.nvim_set_hl(0, 'FlashMatch', { fg = c.bg, bg = c.cyan })
-vim.api.nvim_set_hl(0, 'FlashLabel', { fg = c.bg, bg = c.magenta, bold = true })
-vim.api.nvim_set_hl(0, 'FlashPrompt', { bg = c.bg })
-vim.api.nvim_set_hl(0, 'FlashPromptIcon', { bg = c.bg })
-vim.api.nvim_set_hl(0, 'MiniCursorword', { bg = c.bg })
-vim.api.nvim_set_hl(0, 'NvimSurroundHighlight', { fg = c.bg, bg = c.cyan })
+-- vim.api.nvim_set_hl(0, 'MiniStarterSection', { fg = c.fg, bg = c.bg, bold = true })
+-- vim.api.nvim_set_hl(0, 'MiniStarterFooter', { link = "Comment" })
+-- vim.api.nvim_set_hl(0, 'ZenBg', { fg = c.fg, bg = c.bg })
+-- vim.api.nvim_set_hl(0, 'WinShiftMove', { bg = c.bg })
+-- vim.api.nvim_set_hl(0, 'TabsVsSpaces', { fg = c.fg, underline = true })
+-- vim.api.nvim_set_hl(0, 'FlashCurrent', { fg = c.bg, bg = c.green, bold = true })
+-- vim.api.nvim_set_hl(0, 'FlashMatch', { fg = c.bg, bg = c.cyan })
+-- vim.api.nvim_set_hl(0, 'FlashLabel', { fg = c.bg, bg = c.magenta, bold = true })
+-- vim.api.nvim_set_hl(0, 'FlashPrompt', { bg = c.bg })
+-- vim.api.nvim_set_hl(0, 'FlashPromptIcon', { bg = c.bg })
+-- vim.api.nvim_set_hl(0, 'MiniCursorword', { bg = c.bg })
+-- vim.api.nvim_set_hl(0, 'NvimSurroundHighlight', { fg = c.bg, bg = c.cyan })
 
 -- Telescope
 vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = c.bg })
