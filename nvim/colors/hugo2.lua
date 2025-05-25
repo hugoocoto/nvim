@@ -1,5 +1,8 @@
 vim.opt.termguicolors = true
 
+vim.opt.list = true
+vim.opt.listchars = { tab = ">>", trail = "<" }
+
 local c = {
         -- Color de fondo.
         bg       = '#272727', -- Color de fondo.
@@ -220,7 +223,7 @@ vim.api.nvim_set_hl(0, "Number", defaults.values)                    --   A numb
 vim.api.nvim_set_hl(0, "Boolean", defaults.values)                   --   A boolean constant: TRUE, false
 vim.api.nvim_set_hl(0, "Float", defaults.values)                     --   A floating point constant: 2.3e10
 vim.api.nvim_set_hl(0, "Identifier", defaults.variables)             -- (*) Any variable name
-vim.api.nvim_set_hl(0, "Variable", defaults.variables)             -- (*) Any variable name
+vim.api.nvim_set_hl(0, "Variable", defaults.variables)               -- (*) Any variable name
 vim.api.nvim_set_hl(0, "Function", defaults.functions)               --   Function name (also: methods for classes)
 vim.api.nvim_set_hl(0, "Statement", defaults.keywords)               -- (*) Any statement
 vim.api.nvim_set_hl(0, "Conditional", defaults.keywords)             --   if, then, else, endif, switch, etc.
@@ -258,7 +261,7 @@ vim.api.nvim_set_hl(0, "CursorColumn", { bg = c.black })   -- Screen-column at t
 vim.api.nvim_set_hl(0, "CursorLine", { bg = c.black })     -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
 vim.api.nvim_set_hl(0, "IblIndent", { fg = c.br_black })
 vim.api.nvim_set_hl(0, "VirtColumn", { fg = c.br_black })
-vim.api.nvim_set_hl(0, "ColorColumn", { fg = c.black })     -- Columns set with 'colorcolumn'
+vim.api.nvim_set_hl(0, "ColorColumn", { bg = c.black })     -- Columns set with 'colorcolumn'
 vim.api.nvim_set_hl(0, "Directory", { fg = c.fg })          -- Directory names (and other special names in listings)
 vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = c.cyan })      -- Filler lines ~ after the end of the buffer. By default, this is highlighted like |hl-NonText|.
 vim.api.nvim_set_hl(0, "TermCursor", { link = "Cursor" })   -- Cursor in a focused terminal
@@ -277,7 +280,7 @@ vim.api.nvim_set_hl(0, "ModeMsg", { link = "MsgArea" })                  -- 'sho
 -- MsgSeparator { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
 vim.api.nvim_set_hl(0, "MoreMsg", { fg = c.yellow })                     -- |more-prompt|
 vim.api.nvim_set_hl(0, "NonText", { fg = c.cyan })                       -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-vim.api.nvim_set_hl(0, "NormalFloat", { fg = c.fg, bg = c.black })          -- Normal text in floating windows.
+vim.api.nvim_set_hl(0, "NormalFloat", { fg = c.fg, bg = c.black })       -- Normal text in floating windows.
 vim.api.nvim_set_hl(0, "FloatBorder", { fg = c.white })
 
 -- NormalNC     { }, -- normal text in non-current windows
@@ -325,7 +328,7 @@ vim.api.nvim_set_hl(0, '@string', { link = "String" })     -- String
 
 vim.api.nvim_set_hl(0, "@markup", { fg = c.white })
 vim.api.nvim_set_hl(0, "@markup.strong", { fg = c.yellow, bold = true })
-vim.api.nvim_set_hl(0, "@markup.italic", { fg = c.white, italic = false })
+vim.api.nvim_set_hl(0, "@markup.italic", { fg = c.white, italic = true })
 vim.api.nvim_set_hl(0, "@markup.strikethrough", { fg = c.green, strikethrough = true })
 vim.api.nvim_set_hl(0, "@markup.underline", { fg = c.green })
 vim.api.nvim_set_hl(0, "@markup.heading", { fg = c.magenta })
