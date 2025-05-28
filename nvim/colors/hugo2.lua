@@ -1,7 +1,7 @@
 vim.opt.termguicolors = true
 
 vim.opt.list = true
-vim.opt.listchars = { tab = ">>", trail = "<" }
+vim.opt.listchars = { tab = ">>" }
 
 local c = {
         -- Color de fondo.
