@@ -4,7 +4,7 @@
 # No está probado
 
 CONFIG_NVIM="$HOME/.config/nvim"
-NEW_NVIM_FOLDER="./nvim"
+NEW_NVIM_FOLDER="."
 LAZY_PATH="$HOME/.local/share/nvim/lazy/lazy.nvim"
 
 # Verificar si la carpeta .config/nvim existe
