@@ -3,14 +3,18 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>w", ":wall<CR>")
 vim.keymap.set("n", "<leader>q", ":wall<CR>:qall<CR>")
 
-vim.keymap.set("n", "<leader>c", "_i//<Esc>_")
-vim.keymap.set("v", "<leader>c", "c/*\n/<Esc>kp")
+vim.keymap.set("n", "<CR>", ":w<cr>")
+vim.keymap.set("n", "<leader>h", ":w<cr>:!guile --no-auto-compile %<cr>")
 
--- follow link (probably the most useful remap I ever done)
-vim.keymap.set("n", "<leader>fl", "yiW:!xdg-open <C-r>\" & <CR><CR>", {silent = true})
+-- Follow link (probably the most useful remap I ever done)
+vim.keymap.set("n", "<leader>fl", "yiW:!xdg-open <C-r>\" & <CR><CR>", { silent = true })
 
-vim.keymap.set("n", "<TAB>", ":cnext<cr>")
-vim.keymap.set("n", "<S-TAB>", ":cprev<cr>")
+-- Evaluates an expression using python. It replaces the whole line
+-- Example:
+-- 1 + 2 * (2 - 3)
+-- Would be replaced by
+-- -1
+vim.keymap.set("v", "<leader>ev", "y:.!python3 -c \"print(<C-r>\")\" <CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -42,7 +46,7 @@ vim.keymap.set("n", "gO", "<nop>")
 vim.keymap.set("n", "<C-s>", "<nop>")
 
 vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
-vim.keymap.set({"n","v"}, "ga", vim.lsp.buf.code_action)
+vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action)
 vim.keymap.set("n", "grr", vim.lsp.buf.references)
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
