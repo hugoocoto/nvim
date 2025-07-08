@@ -6,6 +6,8 @@
 
 `i/n/v/...` Mode. Default is normal
 
+Can be outdated. Check init.lua for latest commands.
+
 ---
 
 **Movement (`<d>` field)**
