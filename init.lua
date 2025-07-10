@@ -275,7 +275,7 @@ vim.g.clipboard = {
 
 vim.lsp.config('clangd', {
         on_attach = function()
-                vim.keymap.set("n", "<leader><leader>", ":! clang-format -i %<cr><cr>",{ silent = true, noremap = true })
+                vim.keymap.set("n", "<leader><leader>", ":w<cr>:! clang-format -i %<cr><cr>",{ silent = true, noremap = true })
         end
 })
 
