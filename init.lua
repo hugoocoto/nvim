@@ -1,17 +1,17 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
+        local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+        local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+        if vim.v.shell_error ~= 0 then
+                vim.api.nvim_echo({
+                        { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+                        { out,                            "WarningMsg" },
+                        { "\nPress any key to exit..." },
+                }, true, {})
+                vim.fn.getchar()
+                os.exit(1)
+        end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -64,142 +64,142 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 
 -- Setup lazy.nvim
 require("lazy").setup({
-  spec = {
-  --   -- add your plugins here
-  --
-        { "folke/lazy.nvim" },
-  --
-        -- Telescope
-        {
-                "nvim-telescope/telescope.nvim",
-                dependencies = { "nvim-lua/plenary.nvim" }
-        },
-  --
-  --       -- Trouble
-  --       {
-  --               "folke/trouble.nvim",
-  --               config = function()
-  --                       require("trouble").setup {
-  --                               icons = false
-  --                       }
-  --               end
-  --       },
-  --
-  --       -- Scope
-  --       {
-  --               "tiagovla/scope.nvim",
-  --               config = function()
-  --                       require("scope").setup({})
-  --               end
-  --       },
-  --
-         -- Treesitter
-         {
-                 "nvim-treesitter/nvim-treesitter",
-                 build = function()
-                         local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-                         ts_update()
-                 end
-         },
-
-         -- Treesitter extras
-         { "nvim-treesitter/playground" },
-         { "nvim-treesitter/nvim-treesitter-context" },
-  --
-  --       -- Undotree
-  --       { "mbbill/undotree" },
-  --
-         -- Wakatime
-         { "wakatime/vim-wakatime" },
-
-  --
-  --       -- Markdown preview
-  --       {
-  --               "iamcco/markdown-preview.nvim",
-  --               cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  --               build = function()
-  --                       require("lazy").load({ plugins = { "markdown-preview.nvim" } })
-  --                       vim.fn["mkdp#util#install"]()
-  --               end,
-  --               keys = {
-  --                       {
-  --                               "<leader>mm",
-  --                               ft = "markdown",
-  --                               "<cmd>MarkdownPreviewToggle<cr>",
-  --                               desc = "Markdown Preview",
-  --                       },
-  --               },
-  --               config = function()
-  --                       vim.cmd([[do FileType]])
-  --               end,
-  --       },
-        -- LSP config
-        { "neovim/nvim-lspconfig" },
-  --
-  -- Mason
-        { "williamboman/mason.nvim" },
-
-        {
-          dir = "~/.config/nvim/colors", -- Ruta al directorio donde está `hugo2.lua`
-          name = "hugo2",    -- Este es el nombre del plugin (alias para Lazy)
-          lazy = false,
-          priority = 1000,
-          config = function()
-            vim.cmd("colorscheme hugo2")
-          end,
-        },
-
-        {
-                'saghen/blink.cmp',
-                dependencies = { 'rafamadriz/friendly-snippets' },
-                version = '1.*',
-                opts = {
-                        -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
-                        -- 'super-tab' for mappings similar to vscode (tab to accept)
-                        -- 'enter' for enter to accept
-                        -- 'none' for no mappings
-                        --
-                        -- All presets have the following mappings:
-                        -- C-space: Open menu or open docs if already open
-                        -- C-n/C-p or Up/Down: Select next/previous item
-                        -- C-e: Hide menu
-                        -- C-k: Toggle signature help (if signature.enabled = true)
-                        --
-                        -- See :h blink-cmp-config-keymap for defining your own keymap
-                        keymap = { preset = 'enter' },
-
-                        appearance = {
-                                -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-                                -- Adjusts spacing to ensure icons are aligned
-                                nerd_font_variant = 'mono'
-                        },
-
-                        -- (Default) Only show the documentation popup when manually triggered
-                        completion = { documentation = { auto_show = false } },
-
-                        -- Default list of enabled providers defined so that you can extend it
-                        -- elsewhere in your config, without redefining it, due to `opts_extend`
-                        sources = {
-                                default = { 'lsp', 'path', 'snippets', 'buffer' },
-                        },
-
-                        -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
-                        -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
-                        -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
-                        --
-                        -- See the fuzzy documentation for more information
-                        -- fuzzy = { implementation = "prefer_rust_with_warning" }
+        spec = {
+                --   -- add your plugins here
+                --
+                { "folke/lazy.nvim" },
+                --
+                -- Telescope
+                {
+                        "nvim-telescope/telescope.nvim",
+                        dependencies = { "nvim-lua/plenary.nvim" }
                 },
-                opts_extend = { "sources.default" }
-        }
+                --
+                --       -- Trouble
+                --       {
+                --               "folke/trouble.nvim",
+                --               config = function()
+                --                       require("trouble").setup {
+                --                               icons = false
+                --                       }
+                --               end
+                --       },
+                --
+                --       -- Scope
+                --       {
+                --               "tiagovla/scope.nvim",
+                --               config = function()
+                --                       require("scope").setup({})
+                --               end
+                --       },
+                --
+                -- Treesitter
+                {
+                        "nvim-treesitter/nvim-treesitter",
+                        build = function()
+                                local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+                                ts_update()
+                        end
+                },
+
+                -- Treesitter extras
+                { "nvim-treesitter/playground" },
+                { "nvim-treesitter/nvim-treesitter-context" },
+                --
+                --       -- Undotree
+                --       { "mbbill/undotree" },
+                --
+                -- Wakatime
+                { "wakatime/vim-wakatime" },
+
+                { "neovim/nvim-lspconfig" },
+
+                --
+                --       -- Markdown preview
+                --       {
+                --               "iamcco/markdown-preview.nvim",
+                --               cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+                --               build = function()
+                --                       require("lazy").load({ plugins = { "markdown-preview.nvim" } })
+                --                       vim.fn["mkdp#util#install"]()
+                --               end,
+                --               keys = {
+                --                       {
+                --                               "<leader>mm",
+                --                               ft = "markdown",
+                --                               "<cmd>MarkdownPreviewToggle<cr>",
+                --                               desc = "Markdown Preview",
+                --                       },
+                --               },
+                --               config = function()
+                --                       vim.cmd([[do FileType]])
+                --               end,
+                --       },
+
+                -- Mason
+                { "williamboman/mason.nvim" },
+
+                {
+                        dir = "~/.config/nvim/colors",
+                        name = "hugo2",
+                        lazy = false,
+                        priority = 1000,
+                        config = function()
+                                vim.cmd("colorscheme hugo2")
+                        end,
+                },
+
+                {
+                        'saghen/blink.cmp',
+                        dependencies = { 'rafamadriz/friendly-snippets' },
+                        version = '1.*',
+                        opts = {
+                                -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+                                -- 'super-tab' for mappings similar to vscode (tab to accept)
+                                -- 'enter' for enter to accept
+                                -- 'none' for no mappings
+                                --
+                                -- All presets have the following mappings:
+                                -- C-space: Open menu or open docs if already open
+                                -- C-n/C-p or Up/Down: Select next/previous item
+                                -- C-e: Hide menu
+                                -- C-k: Toggle signature help (if signature.enabled = true)
+                                --
+                                -- See :h blink-cmp-config-keymap for defining your own keymap
+                                keymap = { preset = 'enter' },
+
+                                appearance = {
+                                        -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+                                        -- Adjusts spacing to ensure icons are aligned
+                                        nerd_font_variant = 'mono'
+                                },
+
+                                -- (Default) Only show the documentation popup when manually triggered
+                                completion = { documentation = { auto_show = false } },
+
+                                -- Default list of enabled providers defined so that you can extend it
+                                -- elsewhere in your config, without redefining it, due to `opts_extend`
+                                sources = {
+                                        default = { 'lsp', 'path', 'snippets', 'buffer' },
+                                },
+
+                                -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+                                -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+                                -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+                                --
+                                -- See the fuzzy documentation for more information
+                                -- fuzzy = { implementation = "prefer_rust_with_warning" }
+                        },
+                        opts_extend = { "sources.default" }
+                }
 
 
-  },
-  -- -- Configure any other settings here. See the documentation for more details.
-  -- -- colorscheme that will be used when installing plugins.
-  -- install = { colorscheme = { "habamax" } },
-  -- automatically check for plugin updates
-  checker = { enabled = true },
+        },
+        -- -- Configure any other settings here. See the documentation for more details.
+        -- -- colorscheme that will be used when installing plugins.
+        -- install = { colorscheme = { "habamax" } },
+        -- automatically check for plugin updates
+        checker = { enabled = true },
 })
 
 vim.keymap.set("n", "<CR>", ":w<cr>")
@@ -262,36 +262,39 @@ vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
 
 -- Undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
 -- Mason
 require("mason").setup()
+
 vim.g.clipboard = {
-    name = 'wl-clipboard',
-    copy = { ['+'] = 'wl-copy', ['*'] = 'wl-copy', },
-    paste = { ['+'] = 'wl-paste', ['*'] = 'wl-paste', },
-    cache_enabled = 0,
+        name = 'wl-clipboard',
+        copy = { ['+'] = 'wl-copy', ['*'] = 'wl-copy', },
+        paste = { ['+'] = 'wl-paste', ['*'] = 'wl-paste', },
+        cache_enabled = 0,
 }
 
--- vim.cmd("colorscheme hugo2")
-require 'lspconfig'.clangd.setup {
-        cmd = { 'clangd', '--background-index', '--fallback-style=none', '--clang-tidy', '--log=error' },
-}
+vim.lsp.config('clangd', {
+        on_attach = function()
+                vim.keymap.set("n", "<leader><leader>", ":! clang-format -i %<cr><cr>",{ silent = true, noremap = true })
+        end
+})
 
--- vim.lsp.enable('clangd')
-vim.lsp.enable('luals')
-vim.lsp.enable('pyright')
+vim.lsp.enable('clangd')
+vim.lsp.enable('lua_ls')
 
 vim.diagnostic.config({
-        virtual_text = true, -- esta línea es la que muestra el texto en la línea del error
+        virtual_text = true,
         signs = true,
         underline = true,
         update_in_insert = false,
         severity_sort = true,
 })
+
 local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<leader>fg', function()
-	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+        builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
 vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
@@ -299,31 +302,29 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fD', builtin.lsp_implementations, {})
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
 vim.keymap.set('n', '<leader>ft', builtin.lsp_type_definitions, {})
-vim.keymap.set('n', '<leader>fa', builtin.treesitter,{})
+vim.keymap.set('n', '<leader>fa', builtin.treesitter, {})
 
 require 'nvim-treesitter.configs'.setup {
-    -- A list of parser names, or "all"
-    ensure_installed = { "vimdoc", "c", "lua", "markdown" },
+        -- A list of parser names, or "all"
+        ensure_installed = { "vimdoc", "c", "lua", "markdown" },
 
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = true,
+        -- Install parsers synchronously (only applied to `ensure_installed`)
+        sync_install = true,
 
-    -- Automatically install missing parsers when entering buffer
-    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-    auto_install = true,
+        -- Automatically install missing parsers when entering buffer
+        -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+        auto_install = true,
 
-    highlight = {
-        -- `false` will disable the whole extension
-        enable = true,
+        highlight = {
+                -- `false` will disable the whole extension
+                enable = true,
 
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        additional_vim_regex_highlighting = false,
-    },
+                -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+                -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+                -- Using this option may slow down your editor, and you may see some duplicate highlights.
+                -- Instead of true it can also be a list of languages
+                additional_vim_regex_highlighting = false,
+        },
 }
 
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", {silent = true, noremap = true})
-
-
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })

@@ -39,15 +39,6 @@ else
     exit 1
 fi
 
-# Eliminar carpeta 'after' si existe en el nuevo config
-echo "[+] Removing after folder"
-if rm -fr "$CONFIG_NVIM/after"; then
-    echo "[+] Removed"
-else
-    echo "[-] Error removing 'after' folder" >&2
-    exit 1
-fi
-
 # Lanzar Neovim en modo headless para instalar plugins con Lazy
 echo "[+] Installing packages with lazy.nvim"
 if ! nvim --headless "+Lazy! sync" +qa > ./log 2>&1; then
@@ -55,14 +46,5 @@ if ! nvim --headless "+Lazy! sync" +qa > ./log 2>&1; then
     exit 1
 else
     echo "[+] Plugins installed successfully"
-fi
-
-# Copiar la carpeta after al final
-echo "[+] Copying after folder"
-if cp -r "$NEW_NVIM_FOLDER/after" "$CONFIG_NVIM/after"; then
-    echo "[+] Copied"
-else
-    echo "[-] Error copying 'after' folder" >&2
-    exit 1
 fi
 
