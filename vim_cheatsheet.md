@@ -31,19 +31,25 @@ Can be outdated. Check init.lua for latest commands.
 - `:<n>`: Jump to line 'n'.
 - `<n>G`: Jump to line 'n'.
 - `%`: Move to the matching symbol.
-- `C-O`: Move backward in jump list.
+- `C-o`: Move backward in jump list.
 - `C-I`: Move forward in jump list.
 - zz: Move cursor line to screen middle.
+- `C-u`: Scroll half the screen up.
+- `C-d`: Scroll half the screen down.
 
 **Copy, Paste, Delete**
 - `d`: Delete.
+- `Vd`: Delete line.
+- `D`: Delete from cursor to end of line.
 - `dd`: Delete line.
 - `d<n><d>`: Delete 'n' in direction 'd'.
 - `db`: Delete backward.
 - `y`: Copy.
+- `Y`: Copy from cursor to end of line.
 - `yy`: Copy line.
 - `y<n><d>`: Copy 'n' in direction 'd'.
-- `p`: Paste.
+- `p`: Paste after the cursor.
+- `p`: Paste before the cursor.
 - `p<n>`: Paste 'n' times.
 - `x <leader>p`: Paste deleted content before the cursor in visual mode.
 - `n,v <leader>y`: Copy to the clipboard in normal and visual modes.
@@ -53,7 +59,8 @@ Can be outdated. Check init.lua for latest commands.
 - `n vi<c>`: Select between <c>.
 - `n di<c>`: Delete between <c>.
 - `n ci<c>`: Change between <c>.
-- `n ca<c>`: Change between <c> (included).
+- `n va<c>`: Select between <c> (included).
+- `n viw`: Select into word.
 
 **Change Mode**
 - `a`: Insert mode, after.
@@ -65,6 +72,12 @@ Can be outdated. Check init.lua for latest commands.
 - `C-v`: Visual block mode.
 - `A`: Insert mode at end of line.
 - `I`: Insert mode at start of line.
+
+**Select and replace**
+- `:s/<a>/<b>`: Replace first occurence of <a> for <b> in current line.
+- `:%s/<a>/<b>`: Replace first occurence of <a> for <b> in every line.
+- `:%s/<a>/<b>/g`: Replace all occurences of <a> for <b> in every line.
+- `V :s/<a>/<b>/g`: Replace all occurences of <a> for <b> in selected lines.
 
 **Movement in Insert Mode**
 - `Alt-I`: Jump to the start.
@@ -102,9 +115,11 @@ Can be outdated. Check init.lua for latest commands.
 - `v <n> C-X`: Subtract n to highlighted number(s).
 - `v <n> g C-A`: Add n to highlighted number(s) (stair addition)
 - `v <n> g C-X`: Subtract n to highlighted number(s).
-- v <leader>": Surronding ". Same for `(`, `[`, `{`, `'`. Dont work for V selection
+- `v <n>C-a`: Increment first number of each line by _n_.
+- `v <n>C-x`: Decrement first number of each line by _n_.
+- `v :norm <cmd>`: Apply cmd to each line.
 
-**Harpoon Commands**
+**Harpoon Commands - not in current setup**
 - `n <C-e>`: Toggle the Harpoon quick menu.
 - `n <leader>a`: Add the current file to Harpoon marks.
 - `n <leader>e`: Copy current line and add to Harpoon marks. (for file explorer)
@@ -117,19 +132,18 @@ Can be outdated. Check init.lua for latest commands.
 
 **Formatting**
 - `n <leader><leader>`: Format the current file.
-- `v <leader>x`: Extract selection to a function.
+- `v <leader>x`: Extract selection to a function. (not in current setup)
 
 **Quickfix and Location List Navigation**
 - `n <C-k>`: Move to the next quickfix entry.
 - `n <C-j>`: Move to the previous quickfix entry.
 - `n <leader>k`: Move to the next location list entry.
 - `n <leader>j`: Move to the previous location list entry.
-- `n <leader>xq`: Toggle quickfix.
 
 **Search, Replace and Refactoring**
 - `n <leader>r`: Replace text in the entire file.
 
-**UndoTree**
+**UndoTree - not in current setup**
 - `n <leader>u`: Toggle undotree.
 
 **Telescope Commands**
@@ -141,16 +155,12 @@ Can be outdated. Check init.lua for latest commands.
 - `n <leader>fD`: Open Telescope and list LSP implementations.
 - `n <leader>fg`: Grep file search.
 
-**Git Integration**
-- `n <leader>gs`: Execute `vim.cmd.Git`.
-
 **Completion**
 - `<C-p>`: Select Previous Item
 - `<C-n>`: Select Next Item
 - `<enter>` : Confirm and Select
-- `<C-Space>`: Quit
 
-**Zen Mode**
+**Zen Mode - not in current setup**
 - `<leader>zz`: Toggle zen-mode
 - `<leader>zZ`: Toggle zen-mode (minimalist)
 
