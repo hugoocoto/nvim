@@ -30,8 +30,6 @@ vim.opt.guicursor = ""
 vim.opt.mouse = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
--- vim.opt.completeopt = { "menu", "menuone", "noselect" }
--- vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 vim.opt.tabstop = 8
 vim.opt.softtabstop = 8
 vim.opt.shiftwidth = 8
@@ -51,13 +49,13 @@ vim.opt.colorcolumn = "80"
 vim.opt.updatetime = 500
 vim.opt.foldmethod = 'marker'
 vim.opt.termguicolors = true
-vim.opt.conceallevel = 2
+vim.opt.conceallevel = 0
 
 -- Do not open pdf with nvim as it brokes pdfs
 vim.api.nvim_create_autocmd("BufReadPre", {
         pattern = "*.pdf",
-        callback = function()
-                print("Can not open file with nvim")
+        callback = function(args)
+                vim.fn.jobstart({ "xdg-open", args.file }, { detach = true })
                 vim.cmd("quit")
         end,
 })
@@ -140,14 +138,17 @@ require("lazy").setup({
                 { "williamboman/mason.nvim" },
 
                 {
-                        dir = "~/.config/nvim/colors",
-                        name = "hugo2",
+                        "hugocotoflorez/shoebill",
                         lazy = false,
                         priority = 1000,
-                        config = function()
-                                vim.cmd("colorscheme hugo2")
-                        end,
                 },
+
+                -- {
+                --         dir = "~/code/shoebill/",
+                --         name = "shoebill",
+                --         lazy = false,
+                --         priority = 1000,
+                -- },
 
                 {
                         'saghen/blink.cmp',
@@ -202,6 +203,8 @@ require("lazy").setup({
         checker = { enabled = true },
 })
 
+vim.cmd("colorscheme shoebill")
+
 vim.keymap.set("n", "<CR>", ":w<cr>")
 
 -- Follow link (probably the most useful remap I ever done)
@@ -247,8 +250,8 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 vim.keymap.set("n", "gs", vim.lsp.buf.document_symbol)
 vim.keymap.set("n", "<C-h>", vim.lsp.buf.signature_help)
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
@@ -275,7 +278,8 @@ vim.g.clipboard = {
 
 vim.lsp.config('clangd', {
         on_attach = function()
-                vim.keymap.set("n", "<leader><leader>", ":w<cr>:! clang-format -i %<cr><cr>",{ silent = true, noremap = true })
+                vim.keymap.set("n", "<leader><leader>", ":w<cr>:! clang-format -i %<cr><cr>",
+                        { silent = true, noremap = true })
         end
 })
 
