@@ -15,13 +15,9 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- nvim file manager
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
@@ -64,33 +60,15 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 require("lazy").setup({
         spec = {
                 --   -- add your plugins here
-                --
+
                 { "folke/lazy.nvim" },
-                --
+
                 -- Telescope
                 {
                         "nvim-telescope/telescope.nvim",
                         dependencies = { "nvim-lua/plenary.nvim" }
                 },
-                --
-                --       -- Trouble
-                --       {
-                --               "folke/trouble.nvim",
-                --               config = function()
-                --                       require("trouble").setup {
-                --                               icons = false
-                --                       }
-                --               end
-                --       },
-                --
-                --       -- Scope
-                --       {
-                --               "tiagovla/scope.nvim",
-                --               config = function()
-                --                       require("scope").setup({})
-                --               end
-                --       },
-                --
+
                 -- Treesitter
                 {
                         "nvim-treesitter/nvim-treesitter",
@@ -103,36 +81,11 @@ require("lazy").setup({
                 -- Treesitter extras
                 { "nvim-treesitter/playground" },
                 { "nvim-treesitter/nvim-treesitter-context" },
-                --
-                --       -- Undotree
-                --       { "mbbill/undotree" },
-                --
+
                 -- Wakatime
                 { "wakatime/vim-wakatime" },
 
                 { "neovim/nvim-lspconfig" },
-
-                --
-                --       -- Markdown preview
-                --       {
-                --               "iamcco/markdown-preview.nvim",
-                --               cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-                --               build = function()
-                --                       require("lazy").load({ plugins = { "markdown-preview.nvim" } })
-                --                       vim.fn["mkdp#util#install"]()
-                --               end,
-                --               keys = {
-                --                       {
-                --                               "<leader>mm",
-                --                               ft = "markdown",
-                --                               "<cmd>MarkdownPreviewToggle<cr>",
-                --                               desc = "Markdown Preview",
-                --                       },
-                --               },
-                --               config = function()
-                --                       vim.cmd([[do FileType]])
-                --               end,
-                --       },
 
                 -- Mason
                 { "williamboman/mason.nvim" },
@@ -205,11 +158,6 @@ require("lazy").setup({
 
 vim.cmd("colorscheme shoebill")
 
-vim.keymap.set("n", "<CR>", ":w<cr>")
-
--- Follow link (probably the most useful remap I ever done)
-vim.keymap.set("n", "<leader>fl", "yiW:!xdg-open <C-r>\" & <CR><CR>", { silent = true })
-
 -- Evaluates an expression using python. It replaces the whole line
 -- Example:
 -- 1 + 2 * (2 - 3)
@@ -222,9 +170,6 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z")
 
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
@@ -235,36 +180,13 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set("n", "Q", "<nop>")
 
-vim.keymap.set("n", "grn", "<nop>")
-vim.keymap.set("n", "gra", "<nop>")
-vim.keymap.set("n", "grr", "<nop>")
-vim.keymap.set("n", "gri", "<nop>")
-vim.keymap.set("n", "gO", "<nop>")
-vim.keymap.set("n", "<C-s>", "<nop>")
-
 vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
-vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action)
-vim.keymap.set("n", "grr", vim.lsp.buf.references)
-vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-vim.keymap.set("n", "gs", vim.lsp.buf.document_symbol)
-vim.keymap.set("n", "<C-h>", vim.lsp.buf.signature_help)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
-
-vim.keymap.set("v", "<leader>x", ":'<,'>Refactor extract ")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("x", "<leader>s", "y:%s/<C-r>0/<C-r>0/gI<Left><Left><Left>")
-vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
-
--- Plugin stuff
-
--- Undotree
-vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 -- Mason
 require("mason").setup()
@@ -283,8 +205,9 @@ vim.lsp.config('clangd', {
         end
 })
 
-vim.lsp.enable('clangd')
-vim.lsp.enable('lua_ls')
+vim.lsp.enable('clangd') -- C
+vim.lsp.enable('pylsp')  -- python
+vim.lsp.enable('lua_ls') -- lua
 
 vim.diagnostic.config({
         virtual_text = true,
@@ -310,7 +233,7 @@ vim.keymap.set('n', '<leader>fa', builtin.treesitter, {})
 
 require 'nvim-treesitter.configs'.setup {
         -- A list of parser names, or "all"
-        ensure_installed = { "vimdoc", "c", "lua", "markdown" },
+        ensure_installed = { "vimdoc", "c", "lua", "markdown", "python" },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = true,
@@ -330,5 +253,3 @@ require 'nvim-treesitter.configs'.setup {
                 additional_vim_regex_highlighting = false,
         },
 }
-
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })
