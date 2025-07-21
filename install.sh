@@ -11,8 +11,12 @@ if [ -d "$nvim_config_dir" ]; then
         mv $nvim_config_dir $new_backup_dir
 fi
 
-mkdir $nvim_config_dir
-cp $SCRIPT_DIR/init.lua $nvim_config_dir
+if [ "$1" == "-l" ]; then
+	ln -s $SCRIPT_DIR $nvim_config_dir
+else
+	mkdir $nvim_config_dir
+	cp $SCRIPT_DIR/init.lua $nvim_config_dir
+fi
 
 nvim --headless -c "Lazy! install" -c "qa" 
 
