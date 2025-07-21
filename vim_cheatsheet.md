@@ -37,6 +37,17 @@ Can be outdated. Check init.lua for latest commands.
 - `C-u`: Scroll half the screen up.
 - `C-d`: Scroll half the screen down.
 
+**Lsp mappings**
+- `grr`: Code references
+- `gra`: Code action (n + v)
+- `grn`: Rename symbol
+- `gri`: Implementations
+- `grt`: Type definition
+- `i C-s`: Signature help
+- `gO`: Document symbol
+- `v an, in`: Outer and inner incremental sections
+
+
 **Copy, Paste, Delete**
 - `d`: Delete.
 - `Vd`: Delete line.
