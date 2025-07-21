@@ -7,7 +7,7 @@ Nvim config with installation script.
 > [!NOTE]
 > Nvim version have to be 0.11+
 ``` sh
-git clone https://github.com/hugocotoflorez/nvim
+git clone https://github.com/hugoocoto/nvim
 cd nvim
 ./install.sh
 ```
@@ -15,8 +15,6 @@ cd nvim
 You should have your neovim set. Open nvim to check. If some
 packages where not be installed, reload packages.
 
-> [!CAUTION]
-> Some users report issues with clipboard. It can be fixed by installing wl-clipboard: `pacman -S wl-clipboard`.
 
 ### Cheatsheet
 
