@@ -4,7 +4,8 @@ Nvim config with installation script.
 
 ### Quick setup
 
-> [!NOTE] Nvim version has to be 0.11+
+> [!NOTE] 
+> Nvim version has to be 0.11+
 
 ```sh git clone https://github.com/hugoocoto/nvim cd nvim ./install.sh ```
 
