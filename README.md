@@ -7,7 +7,11 @@ Nvim config with installation script.
 > [!NOTE] 
 > Nvim version has to be 0.11+
 
-```sh git clone https://github.com/hugoocoto/nvim cd nvim ./install.sh ```
+```sh 
+git clone https://github.com/hugoocoto/nvim 
+cd nvim 
+./install.sh 
+```
 
 You can use the `./install.sh -l` flag to create a symlink instead of copying
 the contents of this folder. Make sure that this directory is not moved or
