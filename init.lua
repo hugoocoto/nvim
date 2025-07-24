@@ -43,7 +43,6 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 vim.opt.colorcolumn = "80"
 vim.opt.updatetime = 500
-vim.opt.foldmethod = 'marker'
 vim.opt.termguicolors = true
 vim.opt.conceallevel = 0
 
@@ -181,6 +180,7 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set("n", "Q", "<nop>")
 
 vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.definition)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
