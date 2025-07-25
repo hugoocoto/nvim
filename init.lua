@@ -155,7 +155,7 @@ require("lazy").setup({
         checker = { enabled = true },
 })
 
-vim.cmd("colorscheme shoebill")
+vim.cmd("colorscheme shoebill-dark")
 
 -- Evaluates an expression using python. It replaces the whole line
 -- Example:
