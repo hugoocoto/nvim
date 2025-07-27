@@ -63,10 +63,7 @@ require("lazy").setup({
                 { "folke/lazy.nvim" },
 
                 -- Telescope
-                {
-                        "nvim-telescope/telescope.nvim",
-                        dependencies = { "nvim-lua/plenary.nvim" }
-                },
+                { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
 
                 -- Treesitter
                 {
@@ -180,7 +177,7 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set("n", "Q", "<nop>")
 
 vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
-vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.definition)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
@@ -197,6 +194,7 @@ vim.g.clipboard = {
         paste = { ['+'] = 'wl-paste', ['*'] = 'wl-paste', },
         cache_enabled = 0,
 }
+
 
 vim.lsp.config('clangd', {
         on_attach = function()
@@ -223,10 +221,10 @@ vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<leader>fg', function()
         builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
-vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fD', builtin.lsp_implementations, {})
+vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations, {})
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
 vim.keymap.set('n', '<leader>ft', builtin.lsp_type_definitions, {})
 vim.keymap.set('n', '<leader>fa', builtin.treesitter, {})
