@@ -49,7 +49,6 @@ require("lazy").setup({
 -------------------------------------------------------------------------------
 -- Options
 -------------------------------------------------------------------------------
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.opt.guicursor = ""
@@ -82,7 +81,6 @@ vim.opt.undofile = true
 -------------------------------------------------------------------------------
 -- Misc stuff
 -------------------------------------------------------------------------------
-
 -- Do not open pdf with nvim as it brokes pdfs
 vim.api.nvim_create_autocmd("BufReadPre", {
         pattern = "*.pdf",
@@ -104,7 +102,6 @@ vim.g.clipboard = {
 -------------------------------------------------------------------------------
 -- Remaps and other stuff
 -------------------------------------------------------------------------------
-
 vim.keymap.set("n", "<leader>pv", ":Sex!<cr>")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -123,7 +120,6 @@ vim.keymap.set("x", "<leader>s", "y:%s/<C-r>0/<C-r>0/gI<Left><Left><Left>")
 -------------------------------------------------------------------------------
 -- LSP
 -------------------------------------------------------------------------------
-
 vim.lsp.enable('clangd') -- C
 vim.lsp.enable('pylsp')  -- python
 vim.lsp.enable('lua_ls') -- lua
@@ -139,7 +135,6 @@ vim.lsp.config('lua_ls', {
 -------------------------------------------------------------------------------
 -- Diagnostics
 -------------------------------------------------------------------------------
-
 vim.diagnostic.config({
         virtual_text = false, -- show with C-w d
         signs = true,
@@ -151,7 +146,6 @@ vim.diagnostic.config({
 -------------------------------------------------------------------------------
 -- Telescope
 -------------------------------------------------------------------------------
-
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
@@ -166,7 +160,6 @@ vim.keymap.set('n', '<leader>m', function() builtin.man_pages({ sections = { '1'
 -------------------------------------------------------------------------------
 -- Plugin setup
 -------------------------------------------------------------------------------
-
 require("mason").setup()
 
 require('nvim-treesitter.configs').setup {
