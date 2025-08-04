@@ -1,4 +1,6 @@
--- Bootstrap lazy.nvim
+-------------------------------------------------------------------------------
+-- Lazy
+-------------------------------------------------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
         local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -15,69 +17,17 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
-vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25
-
-vim.opt.winborder = "rounded"
-vim.opt.guicursor = ""
-vim.opt.mouse = ""
-vim.opt.nu = true
-vim.opt.relativenumber = true
-vim.opt.tabstop = 8
-vim.opt.softtabstop = 8
-vim.opt.shiftwidth = 8
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-vim.opt.wrap = false
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
-vim.opt.colorcolumn = "80"
-vim.opt.updatetime = 500
-vim.opt.termguicolors = true
-vim.opt.conceallevel = 0
-
--- Do not open pdf with nvim as it brokes pdfs
-vim.api.nvim_create_autocmd("BufReadPre", {
-        pattern = "*.pdf",
-        callback = function(args)
-                vim.fn.jobstart({ "xdg-open", args.file }, { detach = true })
-                vim.cmd("quit")
-        end,
-})
-
--- Setup lazy.nvim
+-------------------------------------------------------------------------------
+-- Plugins
+-------------------------------------------------------------------------------
 require("lazy").setup({
         spec = {
                 { "folke/lazy.nvim" },
-
-                -- Telescope
-                { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-
-                -- Wakatime
                 { "wakatime/vim-wakatime" },
-
                 { "neovim/nvim-lspconfig" },
-
-                -- Mason
                 { "williamboman/mason.nvim" },
-
-                {
-                        "hugocotoflorez/shoebill",
-                        lazy = false,
-                        priority = 1000,
-                },
-
+                { "nvim-treesitter/nvim-treesitter", lazy = false, branch = 'master', build = ":TSUpdate" },
+                { "hugocotoflorez/shoebill",         lazy = false },
                 {
                         'saghen/blink.cmp',
                         dependencies = { 'rafamadriz/friendly-snippets' },
@@ -90,40 +40,59 @@ require("lazy").setup({
 
                         },
                         opts_extend = { "sources.default" }
-                }
-
-
+                },
+                { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
         },
         checker = { enabled = true },
 })
 
+-------------------------------------------------------------------------------
+-- Options
+-------------------------------------------------------------------------------
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+vim.opt.guicursor = ""
+vim.opt.mouse = ""
+local tabsize = 8
+vim.opt.tabstop = tabsize
+vim.opt.softtabstop = tabsize
+vim.opt.shiftwidth = tabsize
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.nu = true
+vim.opt.relativenumber = true
+vim.opt.wrap = false
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+vim.opt.colorcolumn = "80"
+vim.opt.updatetime = 500
+vim.opt.termguicolors = true
+vim.opt.conceallevel = 0
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+
+-------------------------------------------------------------------------------
+-- Misc stuff
+-------------------------------------------------------------------------------
+
+-- Do not open pdf with nvim as it brokes pdfs
+vim.api.nvim_create_autocmd("BufReadPre", {
+        pattern = "*.pdf",
+        callback = function(args)
+                vim.fn.jobstart({ "xdg-open", args.file }, { detach = true })
+                vim.cmd("quit")
+        end,
+})
+
 vim.cmd("colorscheme shoebill")
-
-vim.keymap.set("n", "<leader>pv", ":Sex!<cr>")
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("n", "J", "mzJ`z")
-
--- greatest remap ever
-vim.keymap.set("x", "<leader>p", [["_dP]])
-
--- next greatest remap ever : asbjornHaland
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
-
-vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-
-vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
-
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("x", "<leader>s", "y:%s/<C-r>0/<C-r>0/gI<Left><Left><Left>")
-
--- Mason
-require("mason").setup()
 
 vim.g.clipboard = {
         name = 'wl-clipboard',
@@ -132,13 +101,28 @@ vim.g.clipboard = {
         cache_enabled = 0,
 }
 
+-------------------------------------------------------------------------------
+-- Remaps and other stuff
+-------------------------------------------------------------------------------
 
--- vim.lsp.config('clangd', {
---         on_attach = function()
---                 vim.keymap.set("n", "<leader><leader>", ":w<cr>:! clang-format -i %<cr><cr>",
---                         { silent = true, noremap = true })
---         end
--- })
+vim.keymap.set("n", "<leader>pv", ":Sex!<cr>")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("x", "<leader>s", "y:%s/<C-r>0/<C-r>0/gI<Left><Left><Left>")
+
+-------------------------------------------------------------------------------
+-- LSP
+-------------------------------------------------------------------------------
 
 vim.lsp.enable('clangd') -- C
 vim.lsp.enable('pylsp')  -- python
@@ -152,6 +136,10 @@ vim.lsp.config('lua_ls', {
         }
 })
 
+-------------------------------------------------------------------------------
+-- Diagnostics
+-------------------------------------------------------------------------------
+
 vim.diagnostic.config({
         virtual_text = false, -- show with C-w d
         signs = true,
@@ -160,17 +148,35 @@ vim.diagnostic.config({
         severity_sort = true,
 })
 
-local builtin = require('telescope.builtin')
+-------------------------------------------------------------------------------
+-- Telescope
+-------------------------------------------------------------------------------
 
+local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-
--- lsp find implementation, definition, type def
 vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations, {})
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
 vim.keymap.set('n', '<leader>ft', builtin.lsp_type_definitions, {})
-
 vim.keymap.set('n', '<leader>fs', builtin.git_status, {})
-vim.keymap.set('n', '<leader>m', builtin.man_pages, {})
+vim.keymap.set('n', '<leader>m', function() builtin.man_pages({ sections = { '1', '2', '3' } }) end)
+
+-------------------------------------------------------------------------------
+-- Plugin setup
+-------------------------------------------------------------------------------
+
+require("mason").setup()
+
+require('nvim-treesitter.configs').setup {
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "python", "markdown" },
+        ignore_install = {},
+        sync_install = false,
+        auto_install = true,
+        modules = {},
+        highlight = {
+                enable = true,
+                additional_vim_regex_highlighting = false,
+        },
+}
