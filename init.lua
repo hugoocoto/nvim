@@ -27,6 +27,11 @@ require("lazy").setup({
                 { "neovim/nvim-lspconfig" },
                 { "williamboman/mason.nvim" },
                 {
+                        'chomosuke/typst-preview.nvim',
+                        ft = 'typst',
+                        version = '1.*',
+                },
+                {
                         "nvim-treesitter/nvim-treesitter",
                         lazy = false,
                         branch = 'master',
@@ -36,6 +41,8 @@ require("lazy").setup({
                         'saghen/blink.cmp',
                         version = '1.*',
                         dependencies = { 'rafamadriz/friendly-snippets' },
+                        opts = { keymap = { preset = 'enter' }, },
+                        opts_extend = { "sources.default" }
                 },
                 {
                         "nvim-telescope/telescope.nvim",
@@ -128,6 +135,8 @@ vim.lsp.config('lua_ls', { -- remove undeclared vim
                 }
         }
 })
+vim.lsp.enable('tinymist') -- typst
+vim.lsp.config('tinymist', { settings = { formatterMode = 'typstyle' } })
 
 -------------------------------------------------------------------------------
 -- Diagnostics
@@ -160,7 +169,7 @@ vim.keymap.set('n', '<leader>m', function() builtin.man_pages({ sections = { '1'
 require("mason").setup()
 
 require('nvim-treesitter.configs').setup {
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "python", "markdown" },
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "python", "markdown", "typst" },
         ignore_install = {},
         sync_install = false,
         auto_install = true,
@@ -170,10 +179,3 @@ require('nvim-treesitter.configs').setup {
                 additional_vim_regex_highlighting = false,
         },
 }
-
-require "blink.cmp".setup({
-        opts = {
-                keymap = { preset = 'enter' },
-        },
-        opts_extend = { "sources.default" }
-})
