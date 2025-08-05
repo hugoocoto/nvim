@@ -22,6 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 -------------------------------------------------------------------------------
 require("lazy").setup({
         spec = {
+                { "stevearc/oil.nvim" },
                 { "folke/lazy.nvim" },
                 { "wakatime/vim-wakatime" },
                 { "neovim/nvim-lspconfig" },
@@ -44,10 +45,7 @@ require("lazy").setup({
                         opts = { keymap = { preset = 'enter' }, },
                         opts_extend = { "sources.default" }
                 },
-                {
-                        "nvim-telescope/telescope.nvim",
-                        dependencies = { "nvim-lua/plenary.nvim" }
-                },
+                { "echasnovski/mini.pick",   version = "*" },
                 { "hugocotoflorez/shoebill", lazy = false },
         },
         checker = { enabled = false },
@@ -62,6 +60,7 @@ vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 vim.opt.guicursor = ""
 local tabsize = 8
+vim.opt.termguicolors = true
 vim.opt.tabstop = tabsize
 vim.opt.softtabstop = tabsize
 vim.opt.shiftwidth = tabsize
@@ -106,27 +105,37 @@ vim.g.clipboard = {
 -------------------------------------------------------------------------------
 -- Remaps and other stuff
 -------------------------------------------------------------------------------
-vim.keymap.set("n", "<leader>pv", ":Sex!<cr>")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z")
+
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+
 vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("x", "<leader>s", "y:%s/<C-r>0/<C-r>0/gI<Left><Left><Left>")
+
+vim.keymap.set('n', '<leader>ff', ":Pick files <cr>")
+vim.keymap.set('n', '<leader>fg', ":Pick grep_live <cr>")
+vim.keymap.set('n', '<leader>fb', ":Pick buffers <cr>")
+vim.keymap.set('n', '<leader>e', ":Oil<cr>")
 
 -------------------------------------------------------------------------------
 -- LSP
 -------------------------------------------------------------------------------
 vim.lsp.enable('clangd')   -- C
 vim.lsp.enable('pylsp')    -- python
+vim.lsp.enable('tinymist') -- typst
 vim.lsp.enable('lua_ls')   -- lua
+
+vim.lsp.config('tinymist', { settings = { formatterMode = 'typstyle' } })
 vim.lsp.config('lua_ls', { -- remove undeclared vim
         settings = {
                 Lua = {
@@ -135,8 +144,6 @@ vim.lsp.config('lua_ls', { -- remove undeclared vim
                 }
         }
 })
-vim.lsp.enable('tinymist') -- typst
-vim.lsp.config('tinymist', { settings = { formatterMode = 'typstyle' } })
 
 -------------------------------------------------------------------------------
 -- Diagnostics
@@ -150,23 +157,11 @@ vim.diagnostic.config({
 })
 
 -------------------------------------------------------------------------------
--- Telescope
--------------------------------------------------------------------------------
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations, {})
-vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
-vim.keymap.set('n', '<leader>ft', builtin.lsp_type_definitions, {})
-vim.keymap.set('n', '<leader>fs', builtin.git_status, {})
-vim.keymap.set('n', '<leader>m', function() builtin.man_pages({ sections = { '1', '2', '3' } }) end)
-
--------------------------------------------------------------------------------
 -- Plugin setup
 -------------------------------------------------------------------------------
 require("mason").setup()
+require("mini.pick").setup()
+require("oil").setup()
 
 require('nvim-treesitter.configs').setup {
         ensure_installed = { "c", "lua", "vim", "vimdoc", "python", "markdown", "typst" },
