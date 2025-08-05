@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
--- Lazy
+-- Lazy installation
 -------------------------------------------------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -26,33 +26,34 @@ require("lazy").setup({
                 { "wakatime/vim-wakatime" },
                 { "neovim/nvim-lspconfig" },
                 { "williamboman/mason.nvim" },
-                { "nvim-treesitter/nvim-treesitter", lazy = false, branch = 'master', build = ":TSUpdate" },
-                { "hugocotoflorez/shoebill",         lazy = false },
+                {
+                        "nvim-treesitter/nvim-treesitter",
+                        lazy = false,
+                        branch = 'master',
+                        build = ":TSUpdate"
+                },
                 {
                         'saghen/blink.cmp',
-                        dependencies = { 'rafamadriz/friendly-snippets' },
                         version = '1.*',
-                        opts = {
-                                keymap = { preset = 'enter' },
-                                appearance = { nerd_font_variant = 'mono' },
-                                completion = { documentation = { auto_show = false } },
-                                sources = { default = { 'lsp', 'path', 'snippets', 'buffer' }, },
-
-                        },
-                        opts_extend = { "sources.default" }
+                        dependencies = { 'rafamadriz/friendly-snippets' },
                 },
-                { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+                {
+                        "nvim-telescope/telescope.nvim",
+                        dependencies = { "nvim-lua/plenary.nvim" }
+                },
+                { "hugocotoflorez/shoebill", lazy = false },
         },
-        checker = { enabled = true },
+        checker = { enabled = false },
 })
 
 -------------------------------------------------------------------------------
 -- Options
 -------------------------------------------------------------------------------
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
 vim.opt.guicursor = ""
-vim.opt.mouse = ""
 local tabsize = 8
 vim.opt.tabstop = tabsize
 vim.opt.softtabstop = tabsize
@@ -68,11 +69,7 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
 vim.opt.updatetime = 500
-vim.opt.termguicolors = true
 vim.opt.conceallevel = 0
-vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
@@ -81,7 +78,7 @@ vim.opt.undofile = true
 -------------------------------------------------------------------------------
 -- Misc stuff
 -------------------------------------------------------------------------------
--- Do not open pdf with nvim as it brokes pdfs
+-- Do not open pdf with nvim
 vim.api.nvim_create_autocmd("BufReadPre", {
         pattern = "*.pdf",
         callback = function(args)
@@ -120,10 +117,10 @@ vim.keymap.set("x", "<leader>s", "y:%s/<C-r>0/<C-r>0/gI<Left><Left><Left>")
 -------------------------------------------------------------------------------
 -- LSP
 -------------------------------------------------------------------------------
-vim.lsp.enable('clangd') -- C
-vim.lsp.enable('pylsp')  -- python
-vim.lsp.enable('lua_ls') -- lua
-vim.lsp.config('lua_ls', {
+vim.lsp.enable('clangd')   -- C
+vim.lsp.enable('pylsp')    -- python
+vim.lsp.enable('lua_ls')   -- lua
+vim.lsp.config('lua_ls', { -- remove undeclared vim
         settings = {
                 Lua = {
                         workspace = {
@@ -173,3 +170,10 @@ require('nvim-treesitter.configs').setup {
                 additional_vim_regex_highlighting = false,
         },
 }
+
+require "blink.cmp".setup({
+        opts = {
+                keymap = { preset = 'enter' },
+        },
+        opts_extend = { "sources.default" }
+})
