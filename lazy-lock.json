@@ -7,7 +7,7 @@
   "nvim-lspconfig": { "branch": "master", "commit": "9141be4c1332afc83bdf1b0278dbb030f75ff8e3" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
   "oil.nvim": { "branch": "master", "commit": "bbad9a76b2617ce1221d49619e4e4b659b3c61fc" },
-  "shoebill": { "branch": "main", "commit": "5a8edb4f632c9e6c5a8d42530cdffba582c0bda3" },
+  "shoebill": { "branch": "main", "commit": "06bb45ab2cb7ddb4449e78be5bbacaf26f24f3ec" },
   "typst-preview.nvim": { "branch": "master", "commit": "dea4525d5420b7c32eebda7de15a6beb9d6574fa" },
   "vim-wakatime": { "branch": "master", "commit": "3403495670f0ee08887401a28f8430dc4ac67429" }
 }
