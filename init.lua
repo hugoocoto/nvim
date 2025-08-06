@@ -45,8 +45,8 @@ require("lazy").setup({
                         opts = { keymap = { preset = 'enter' }, },
                         opts_extend = { "sources.default" }
                 },
-                { "echasnovski/mini.pick",   version = "*" },
-                { "hugocotoflorez/shoebill", lazy = false },
+                { "echasnovski/mini.pick",    version = "*" },
+                { "hugoocoto/shoebill", lazy = false },
         },
         checker = { enabled = false },
 })
@@ -93,7 +93,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
         end,
 })
 
-vim.cmd("colorscheme shoebill")
+vim.cmd("colorscheme shoebill-forest")
 
 vim.g.clipboard = {
         name = 'wl-clipboard',
@@ -134,6 +134,7 @@ vim.lsp.enable('clangd')   -- C
 vim.lsp.enable('pylsp')    -- python
 vim.lsp.enable('tinymist') -- typst
 vim.lsp.enable('lua_ls')   -- lua
+vim.lsp.enable('bashls')   -- bash, shell
 
 vim.lsp.config('tinymist', { settings = { formatterMode = 'typstyle' } })
 vim.lsp.config('lua_ls', { -- remove undeclared vim
