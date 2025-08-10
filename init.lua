@@ -1,4 +1,4 @@
--------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- Lazy installation
 -------------------------------------------------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -45,8 +45,14 @@ require("lazy").setup({
                         opts = { keymap = { preset = 'enter' }, },
                         opts_extend = { "sources.default" }
                 },
-                { "echasnovski/mini.pick",    version = "*" },
-                { "hugoocoto/shoebill", lazy = false },
+                { "echasnovski/mini.pick", version = "*" },
+                { "hugoocoto/shoebill",    lazy = false },
+                {
+                        'nvim-telescope/telescope.nvim',
+                        branch = '0.1.x',
+                        dependencies = { 'nvim-lua/plenary.nvim' }
+                },
+                { "nvzone/showkeys", cmd = "ShowkeysToggle" },
         },
         checker = { enabled = false },
 })
@@ -54,32 +60,42 @@ require("lazy").setup({
 -------------------------------------------------------------------------------
 -- Options
 -------------------------------------------------------------------------------
+-- This is as based as it's written in vimscript
+vim.cmd [[
+let g:did_install_default_menus=1
+let g:loaded_netrwPlugin=0
+set guicursor=""
+set tabstop=8
+set shiftwidth=8
+set softtabstop=-1
+set expandtab
+set smartindent
+set relativenumber
+set nu
+set nowrap
+set nohlsearch
+set incsearch
+set scrolloff=8
+set sidescrolloff=8
+set updatetime=1000
+set conceallevel=0
+set noswapfile
+set nobackup
+set undofile
+set wildignorecase
+set ignorecase
+set smartcase
+set noshowmode
+set noruler
+set noshowcmd
+]]
+
 vim.g.mapleader = " "
-vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25
-vim.opt.guicursor = ""
-local tabsize = 8
-vim.opt.termguicolors = true
-vim.opt.tabstop = tabsize
-vim.opt.softtabstop = tabsize
-vim.opt.shiftwidth = tabsize
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-vim.opt.nu = true
-vim.opt.relativenumber = true
-vim.opt.wrap = false
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
+vim.opt.clipboard = 'unnamedplus'
+vim.opt.virtualedit = "block"
 vim.opt.colorcolumn = "80"
-vim.opt.updatetime = 500
-vim.opt.conceallevel = 0
-vim.opt.swapfile = false
-vim.opt.backup = false
+vim.opt.signcolumn = "yes"
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
 
 -------------------------------------------------------------------------------
 -- Misc stuff
@@ -95,13 +111,6 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 
 vim.cmd("colorscheme shoebill-forest")
 
-vim.g.clipboard = {
-        name = 'wl-clipboard',
-        copy = { ['+'] = 'wl-copy', ['*'] = 'wl-copy', },
-        paste = { ['+'] = 'wl-paste', ['*'] = 'wl-paste', },
-        cache_enabled = 0,
-}
-
 -------------------------------------------------------------------------------
 -- Remaps and other stuff
 -------------------------------------------------------------------------------
@@ -109,23 +118,25 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z")
 
-vim.keymap.set("x", "<leader>p", [["_dP]])
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
-
 vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition) -- it is not default?
 
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("x", "<leader>s", "y:%s/<C-r>0/<C-r>0/gI<Left><Left><Left>")
-
-vim.keymap.set('n', '<leader>ff', ":Pick files <cr>")
-vim.keymap.set('n', '<leader>fg', ":Pick grep_live <cr>")
-vim.keymap.set('n', '<leader>fb', ":Pick buffers <cr>")
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files)
+vim.keymap.set('n', '<leader>fg', builtin.live_grep)
+vim.keymap.set('n', '<leader>fb', builtin.buffers)
 vim.keymap.set('n', '<leader>e', ":Oil<cr>")
+
+-- I stole this from someone and I like it
+vim.keymap.set('n', '<bs>', function()
+        vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end)
+vim.keymap.set('n', '<cr>', vim.cmd.write)
+
 
 -------------------------------------------------------------------------------
 -- LSP
@@ -152,7 +163,7 @@ vim.lsp.config('lua_ls', { -- remove undeclared vim
 vim.diagnostic.config({
         virtual_text = false, -- show with C-w d
         signs = true,
-        underline = true,
+        underline = false,
         update_in_insert = false,
         severity_sort = true,
 })
@@ -160,15 +171,13 @@ vim.diagnostic.config({
 -------------------------------------------------------------------------------
 -- Plugin setup
 -------------------------------------------------------------------------------
-require("mason").setup()
-require("mini.pick").setup()
-require("oil").setup()
-
-require('nvim-treesitter.configs').setup {
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "python", "markdown", "typst" },
-        ignore_install = {},
+require 'mason'.setup()
+require 'oil'.setup()
+require 'nvim-treesitter.configs'.setup {
+        ensure_installed = {},
         sync_install = false,
         auto_install = true,
+        ignore_install = {},
         modules = {},
         highlight = {
                 enable = true,
