@@ -11,7 +11,7 @@ vim.pack.add({
         "https://github.com/nvzone/showkeys",
         "https://github.com/nvim-treesitter/nvim-treesitter",
         "https://github.com/nvim-lua/plenary.nvim",
-        "https://github.com/rafamadriz/friendly-snippets",
+        "https://github.com/L3MON4D3/LuaSnip",
         {
                 src = "https://github.com/chomosuke/typst-preview.nvim",
                 version = vim.version.range("1.*"),
@@ -52,7 +52,8 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.updatetime = 1000
 vim.o.conceallevel = 0
-vim.o.colorcolumn = "80"
+vim.o.colorcolumn = "+0"
+vim.o.textwidth = 80
 vim.o.signcolumn = "yes"
 vim.o.guicursor = ""
 vim.o.virtualedit = "block"
@@ -69,6 +70,7 @@ vim.o.clipboard = "unnamedplus"
 -------------------------------------------------------------------------------
 -- Misc stuff
 -------------------------------------------------------------------------------
+
 -- Do not open pdf with nvim
 vim.api.nvim_create_autocmd("BufReadPre", {
         pattern = "*.pdf",
@@ -78,41 +80,24 @@ vim.api.nvim_create_autocmd("BufReadPre", {
         end,
 })
 
+-- Enable stuff for writting buffers
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+        pattern = { "*.txt", "*.md", "*.typ" },
+        callback = function()
+                vim.opt_local.formatoptions = "tln"
+                vim.opt_local.spell = true
+                vim.opt_local.wrap = true
+                vim.opt_local.linebreak = true
+                vim.keymap.set("n", "<leader>c", "1z=", { buffer = true })
+        end,
+})
+
 vim.cmd("colorscheme shoebill-forest")
-
--------------------------------------------------------------------------------
--- Remaps and other stuff
--------------------------------------------------------------------------------
--- vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
--- vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-
-vim.keymap.set("x", "<leader>p", [["_dP]])
-
-vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-
-vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
-
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files)
-vim.keymap.set('n', '<leader>fg', builtin.live_grep)
-vim.keymap.set('n', '<leader>fb', builtin.buffers)
-vim.keymap.set('n', '<leader>e', ":Oil<cr>")
-
-vim.keymap.set('n', '<bs>', function()
-        vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
-end)
 
 -------------------------------------------------------------------------------
 -- LSP
 -------------------------------------------------------------------------------
-vim.lsp.enable('clangd')
-vim.lsp.enable('pylsp')
-vim.lsp.enable('tinymist')
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('bashls')
-
+vim.lsp.enable({ 'clangd', 'pylsp', 'tinymist', 'lua_ls', 'bashls' })
 vim.lsp.config('tinymist', { settings = { formatterMode = 'typstyle' } })
 vim.lsp.config('lua_ls', { -- remove undeclared vim
         settings = {
@@ -139,22 +124,44 @@ vim.diagnostic.config({
 -------------------------------------------------------------------------------
 require 'mason'.setup()
 require 'oil'.setup()
+require 'nvim-treesitter.configs'.setup { highlight = { enable = true, }, }
+require "showkeys".setup({ position = "top-right" })
 
-require 'nvim-treesitter.configs'.setup {
-        ensure_installed = {},
-        sync_install = false,
-        auto_install = true,
-        ignore_install = {},
-        modules = {},
-        highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = false,
-        },
-}
+require("luasnip").setup({ enable_autosnippets = true })
+require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
 
 require 'blink.cmp'.setup {
-        keymap = { preset = 'enter' }
+        sources = { default = { 'lsp', 'path', 'buffer' } },
+        keymap = { preset = 'enter' },
 }
+
+require 'typst-preview'.setup {
+        dependencies_bin = { ['tinymst'] = 'tinymst' }
+}
+
+-------------------------------------------------------------------------------
+-- Remaps and other stuff
+-------------------------------------------------------------------------------
+vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files)
+vim.keymap.set('n', '<leader>fg', builtin.live_grep)
+vim.keymap.set('n', '<leader>fb', builtin.buffers)
+vim.keymap.set('n', '<leader>e', ":Oil<cr>")
+
+vim.keymap.set('n', '<bs>', function()
+        vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
+end)
+
+local ls = require("luasnip")
+vim.keymap.set("i", "<C-L>", function() ls.expand_or_jump(1) end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-K>", function() ls.jump(-1) end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-J>", function() ls.jump(1) end, { silent = true })
 
 ------------------------------------------------------------------------------
 -- Lazy installation
@@ -181,4 +188,4 @@ require 'blink.cmp'.setup {
 --                 },
 --         },
 --         checker = { enabled = false },
--- })
+--
