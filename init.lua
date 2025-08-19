@@ -80,7 +80,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
         end,
 })
 
--- Enable stuff for writting buffers
+-- Enable stuff for writing buffers
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
         pattern = { "*.txt", "*.md", "*.typ" },
         callback = function()
