@@ -88,6 +88,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
                 vim.opt_local.spell = true
                 vim.opt_local.wrap = true
                 vim.opt_local.linebreak = true
+                vim.opt_local.spelllang = { "en", "es" }
                 vim.keymap.set("n", "<leader>c", "1z=", { buffer = true })
         end,
 })
@@ -124,7 +125,9 @@ vim.diagnostic.config({
 -------------------------------------------------------------------------------
 require 'mason'.setup()
 require 'oil'.setup()
-require 'nvim-treesitter.configs'.setup { highlight = { enable = true, }, }
+require 'nvim-treesitter.configs'.setup {
+        highlight = { enable = true, },
+        auto_install = true, }
 require "showkeys".setup({ position = "top-right" })
 
 require("luasnip").setup({ enable_autosnippets = true })
