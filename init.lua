@@ -163,5 +163,5 @@ end)
 
 local ls = require("luasnip")
 vim.keymap.set("i", "<C-L>", function() ls.expand_or_jump(1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-K>", function() ls.jump(-1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-J>", function() ls.jump(1) end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-p>", function() ls.jump(-1) end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-n>", function() ls.jump(1) end, { silent = true })
