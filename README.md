@@ -21,3 +21,7 @@ to date.
 ### Cheatsheet
 
 There’s a file called `./vim_cheatsheet.md` with (not) all the mappings.
+
+### Vimrc
+There is a .vimrc with similar config, without plugins and with the
+colorscheme embedded inside the .vimrc.

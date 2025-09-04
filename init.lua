@@ -7,11 +7,12 @@ vim.pack.add({
         "https://github.com/wakatime/vim-wakatime",
         "https://github.com/neovim/nvim-lspconfig",
         "https://github.com/williamboman/mason.nvim",
-        "https://github.com/hugoocoto/shoebill",
+        "https://github.com/hugoocoto/hforest",
         "https://github.com/nvzone/showkeys",
         "https://github.com/nvim-treesitter/nvim-treesitter",
         "https://github.com/nvim-lua/plenary.nvim",
         "https://github.com/L3MON4D3/LuaSnip",
+        "https://github.com/rose-pine/neovim",
         {
                 src = "https://github.com/chomosuke/typst-preview.nvim",
                 version = vim.version.range("1.*"),
@@ -93,7 +94,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
         end,
 })
 
-vim.cmd("colorscheme shoebill-forest")
+vim.cmd("colorscheme hforest")
 
 -------------------------------------------------------------------------------
 -- LSP
@@ -105,63 +106,63 @@ vim.lsp.config('lua_ls', { -- remove undeclared vim
                 Lua = {
                         workspace = {
                                 library = vim.api.nvim_get_runtime_file("", true), }
+                        }
                 }
-        }
-})
+        })
 
--------------------------------------------------------------------------------
--- Diagnostics
--------------------------------------------------------------------------------
-vim.diagnostic.config({
-        virtual_text = false,
-        signs = true,
-        underline = false,
-        update_in_insert = false,
-        severity_sort = true,
-})
+        -------------------------------------------------------------------------------
+        -- Diagnostics
+        -------------------------------------------------------------------------------
+        vim.diagnostic.config({
+                virtual_text = false,
+                signs = true,
+                underline = false,
+                update_in_insert = false,
+                severity_sort = true,
+        })
 
--------------------------------------------------------------------------------
--- Plugin setup
--------------------------------------------------------------------------------
-require 'mason'.setup()
-require 'oil'.setup()
-require 'nvim-treesitter.configs'.setup {
-        highlight = { enable = true, },
-        auto_install = true, }
-require "showkeys".setup({ position = "top-right" })
+        -------------------------------------------------------------------------------
+        -- Plugin setup
+        -------------------------------------------------------------------------------
+        require 'mason'.setup()
+        require 'oil'.setup()
+        require 'nvim-treesitter.configs'.setup {
+                highlight = { enable = true, },
+                auto_install = true, }
+                require "showkeys".setup({ position = "top-right" })
 
-require("luasnip").setup({ enable_autosnippets = true })
-require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
+                require("luasnip").setup({ enable_autosnippets = true })
+                require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
 
-require 'blink.cmp'.setup {
-        sources = { default = { 'lsp', 'path', 'buffer' } },
-        keymap = { preset = 'enter' },
-}
+                require 'blink.cmp'.setup {
+                        sources = { default = { 'lsp', 'path', 'buffer' } },
+                        keymap = { preset = 'enter' },
+                }
 
-require 'typst-preview'.setup {
-        dependencies_bin = { ['tinymst'] = 'tinymst' }
-}
+                require 'typst-preview'.setup {
+                        dependencies_bin = { ['tinymst'] = 'tinymst' }
+                }
 
--------------------------------------------------------------------------------
--- Remaps and other stuff
--------------------------------------------------------------------------------
-vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-vim.keymap.set("x", "<leader>p", [["_dP]])
-vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+                -------------------------------------------------------------------------------
+                -- Remaps and other stuff
+                -------------------------------------------------------------------------------
+                vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
+                vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+                vim.keymap.set("x", "<leader>p", [["_dP]])
+                vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+                vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files)
-vim.keymap.set('n', '<leader>fg', builtin.live_grep)
-vim.keymap.set('n', '<leader>fb', builtin.buffers)
-vim.keymap.set('n', '<leader>e', ":Oil<cr>")
+                local builtin = require('telescope.builtin')
+                vim.keymap.set('n', '<leader>ff', builtin.find_files)
+                vim.keymap.set('n', '<leader>fg', builtin.live_grep)
+                vim.keymap.set('n', '<leader>fb', builtin.buffers)
+                vim.keymap.set('n', '<leader>e', ":Oil<cr>")
 
-vim.keymap.set('n', '<bs>', function()
-        vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
-end)
+                vim.keymap.set('n', '<bs>', function()
+                        vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
+                end)
 
-local ls = require("luasnip")
-vim.keymap.set("i", "<C-L>", function() ls.expand_or_jump(1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-p>", function() ls.jump(-1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-n>", function() ls.jump(1) end, { silent = true })
+                local ls = require("luasnip")
+                vim.keymap.set("i", "<C-L>", function() ls.expand_or_jump(1) end, { silent = true })
+                vim.keymap.set({ "i", "s" }, "<C-p>", function() ls.jump(-1) end, { silent = true })
+                vim.keymap.set({ "i", "s" }, "<C-n>", function() ls.jump(1) end, { silent = true })
