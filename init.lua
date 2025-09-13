@@ -67,6 +67,7 @@ vim.o.showmode = false
 vim.o.ruler = false
 vim.o.showcmd = false
 vim.o.clipboard = "unnamedplus"
+vim.o.termguicolors = true
 
 -------------------------------------------------------------------------------
 -- Misc stuff
