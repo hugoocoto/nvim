@@ -25,3 +25,7 @@ There’s a file called `./vim_cheatsheet.md` with (not) all the mappings.
 ### Vimrc
 There is a .vimrc with similar config, without plugins and with the
 colorscheme embedded inside the .vimrc.
+
+### Codium support
+I use the `VSCode Neovim` extension from `asvetiliakov`, it loads init.lua
+automatically.
