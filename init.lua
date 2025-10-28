@@ -4,23 +4,21 @@
 function Pack()
         vim.pack.add({
                 "https://github.com/stevearc/oil.nvim",
-                "https://github.com/folke/lazy.nvim",
+                "https://github.com/nvim-telescope/telescope.nvim",
                 "https://github.com/wakatime/vim-wakatime",
                 "https://github.com/neovim/nvim-lspconfig",
-                "https://github.com/williamboman/mason.nvim",
-                "https://github.com/hugoocoto/hforest",
-                "https://github.com/nvzone/showkeys",
                 "https://github.com/nvim-treesitter/nvim-treesitter",
                 "https://github.com/nvim-lua/plenary.nvim",
+
                 "https://github.com/L3MON4D3/LuaSnip",
                 "https://github.com/rose-pine/neovim",
+                "https://github.com/sainnhe/everforest",
+                "https://github.com/sainnhe/gruvbox-material",
+                "https://github.com/ellisonleao/gruvbox.nvim",
+                "https://github.com/hugoocoto/hforest",
                 {
                         src = "https://github.com/chomosuke/typst-preview.nvim",
                         version = vim.version.range("1.*"),
-                },
-                {
-                        src = "https://github.com/nvim-telescope/telescope.nvim",
-                        version = vim.version.range("0.1.*"),
                 },
                 {
                         src = "https://github.com/saghen/blink.cmp",
@@ -71,6 +69,7 @@ function Options()
         vim.o.showcmd = false
         vim.o.clipboard = "unnamedplus"
         vim.o.termguicolors = true
+        vim.o.path = '**'
 end
 
 -------------------------------------------------------------------------------
@@ -81,8 +80,36 @@ function MISC()
         vim.api.nvim_create_autocmd("BufReadPre", {
                 pattern = "*.pdf",
                 callback = function(args)
-                        vim.fn.jobstart({ "xdg-open", args.file }, { detach = true })
                         vim.cmd("quit")
+                end,
+        })
+
+        vim.cmd("colorscheme hforest")
+        vim.api.nvim_create_autocmd("BufReadPre", {
+                pattern = "*.java",
+                callback = function()
+                        vim.opt.tabstop = 4
+                        vim.opt.shiftwidth = 4
+                        vim.opt.softtabstop = -1
+                end,
+        })
+
+        vim.api.nvim_create_autocmd("BufReadPre", {
+                pattern = "*.html",
+                callback = function()
+                        vim.opt.tabstop = 2
+                        vim.opt.shiftwidth = 2
+                        vim.opt.softtabstop = -1
+                end,
+        })
+
+        -- Save on focus lost
+        vim.api.nvim_create_autocmd({ "FocusLost", "WinLeave" }, {
+                pattern = "*",
+                callback = function()
+                        if vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
+                                vim.cmd("w")
+                        end
                 end,
         })
 
@@ -95,18 +122,26 @@ function MISC()
                         vim.opt_local.wrap = true
                         vim.opt_local.linebreak = true
                         vim.opt_local.spelllang = { "en", "es" }
-                        vim.keymap.set("n", "<leader>c", "1z=", { buffer = true })
                 end,
         })
-
-        vim.cmd("colorscheme hforest")
 end
 
 -------------------------------------------------------------------------------
 -- LSP
 -------------------------------------------------------------------------------
 function Lsp()
-        vim.lsp.enable({ 'clangd', 'pylsp', 'tinymist', 'lua_ls', 'bashls' })
+        vim.lsp.enable({
+                'clangd',
+                'pylsp',
+                'tinymist',
+                'lua_ls',
+                'bashls',
+                'html',
+                'cssls',
+                'dockerls',
+                'hls',
+                'jdtls',
+        })
         vim.lsp.config('tinymist', { settings = { formatterMode = 'typstyle' } })
         vim.lsp.config('lua_ls', { -- remove undeclared vim
                 settings = {
@@ -135,19 +170,20 @@ end
 -- Plugin setup
 -------------------------------------------------------------------------------
 function PluginSetup()
-        require 'mason'.setup()
         require 'oil'.setup()
 
         require 'nvim-treesitter.configs'.setup {
-                highlight = { enable = true, },
-                modules = {},
-                sync_install = true,
-                ensure_installed = {},
-                ignore_install = {},
+                modules = { "all" },
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+                sync_install = false,
                 auto_install = true,
+                ignore_install = {},
+                highlight = {
+                        enable = true,
+                        disable = {},
+                        additional_vim_regex_highlighting = false,
+                },
         }
-
-        require "showkeys".setup({ position = "top-right" })
 
         require("luasnip").setup({ enable_autosnippets = true })
         require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
@@ -167,22 +203,25 @@ end
 -------------------------------------------------------------------------------
 function Mappings()
         vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-        vim.keymap.set("x", "<leader>p", [["_dP]])
+        vim.keymap.set("n", "gd", [[:echo "Use ^["<cr>]])
+        vim.keymap.set("v", "<leader>p", [["_dP]])
         vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
         vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+        vim.keymap.set("c", "wq", "x") -- just write if there are changes
+
+        vim.keymap.set("n", "<leader>c", "1z=")
 
         vim.keymap.set('n', '<bs>', function()
                 vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
         end)
 
-        local ok, builtin = pcall(require, 'telescope.builtin')
-        if (ok) then
-                vim.keymap.set('n', '<leader>ff', builtin.find_files)
-                vim.keymap.set('n', '<leader>fg', builtin.live_grep)
-                vim.keymap.set('n', '<leader>fb', builtin.buffers)
-                vim.keymap.set('n', '<leader>e', ":Oil<cr>")
-        end
+        local builtin = require('telescope.builtin')
+        vim.keymap.set('n', '<leade>ff', builtin.find_files)
+        vim.keymap.set('n', '<leader>fg', builtin.live_grep)
+        vim.keymap.set('n', '<leader>fb', builtin.buffers)
+        vim.keymap.set('n', '<leader>fh', builtin.help_tags)
+        vim.keymap.set('n', '<leader>fr', builtin.lsp_references)
+        vim.keymap.set('n', '<leader>e', ":Oil<cr>")
 
         local okk, ls = pcall(require, "luasnip")
         if (okk) then
@@ -195,7 +234,6 @@ end
 if vim.g.vscode then
         Options()
         Mappings()
-        return
 else
         Pack()
         Lsp()

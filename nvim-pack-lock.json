@@ -1,0 +1,25 @@
+{
+  "plugins": {
+    "LuaSnip": [],
+    "blink.cmp": {
+      "version": "1.0.0 - 2.0.0"
+    },
+    "everforest": [],
+    "gruvbox-material": [],
+    "gruvbox.nvim": [],
+    "hforest": [],
+    "neovim": [],
+    "nvim-lspconfig": [],
+    "nvim-treesitter": [],
+    "oil.nvim": [],
+    "plenary.nvim": [],
+    "telescope.nvim": {
+      "rev": "b4da76b",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "typst-preview.nvim": {
+      "version": "1.0.0 - 2.0.0"
+    },
+    "vim-wakatime": []
+  }
+}
