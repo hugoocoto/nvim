@@ -1,27 +1,27 @@
 ---@diagnostic disable: undefined-global
 
 return {
-        -- math modes
-        s({ trig = "mt", snippetType = "autosnippet" }, fmta("$<>$ ", { i(1) })),
-        s({ trig = "mmt", snippetType = "autosnippet" }, fmta("$ <> $ ", { i(1) })),
+    -- math modes
+    s({ trig = "mt", snippetType = "autosnippet" }, fmta("$<>$ ", { i(1) })),
+    s({ trig = "mmt", snippetType = "autosnippet" }, fmta("$ <> $ ", { i(1) })),
 
-        s({ trig = "(%d+)", regTrig = true },
-                fmta([[
+    s({ trig = "(%d+)", regTrig = true },
+        fmta([[
 #for i in range(<>) {
 	<>
 }]], {
-                        f(function(_, s) return s.captures[1] end),
-                        i(1)
-                })
-        ),
-        s({ trig = "([^%s]+)t", regTrig = true },
-                fmta("(<>)^(<>) ", {
-                        f(function(_, s) return s.captures[1] end),
-                        i(1)
-                })
-        ),
+            f(function(_, s) return s.captures[1] end),
+            i(1)
+        })
+    ),
+    s({ trig = "([^%s]+)t", regTrig = true },
+        fmta("(<>)^(<>) ", {
+            f(function(_, s) return s.captures[1] end),
+            i(1)
+        })
+    ),
 
-        s({ trig = "ieee" }, fmta([[
+    s({ trig = "ieee" }, fmta([[
 #import "@preview/charged-ieee:0.1.4": ieee
 
 #show: ieee.with(
@@ -42,12 +42,12 @@ return {
 = Introduction
 <>
     ]], {
-                i(1, "Título"),
-                i(2, "Resumen"),
-                i(3, ""),
-        })),
+        i(1, "Título"),
+        i(2, "Resumen"),
+        i(3, ""),
+    })),
 
-        s({ trig = "paper" }, fmta([[
+    s({ trig = "paper" }, fmta([[
 #import "@preview/rubber-article:0.5.0": *
 
 #let title = [<>]
@@ -74,11 +74,11 @@ return {
 = Introduction
 <>
     ]], {
-                i(1, "Título"),
-                i(2, ""),
-        })),
+        i(1, "Título"),
+        i(2, ""),
+    })),
 
-        s("note", fmt([[
+    s("note", fmt([[
 #let author = "Hugo Coto Flórez"
 #let mail = "hugo.coto@rai.usc.es"
 
@@ -98,8 +98,8 @@ return {
 
 {}
 ]], {
-                i(1),
-        })),
-        --         s({ trig = "" }, fmta([[
-        -- ]])),
+        i(1),
+    })),
+    --         s({ trig = "" }, fmta([[
+    -- ]])),
 }

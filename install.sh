@@ -21,5 +21,3 @@ else
 	cp $SCRIPT_DIR/init.lua $nvim_config_dir
 fi
 
-nvim --headless -c "Lazy! install" -c "qa" 
-
