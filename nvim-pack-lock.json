@@ -1,16 +1,16 @@
 {
   "plugins": {
     "LuaSnip": {
-      "rev": "eec1a84823e3fb9eb51705265cab77d9a970be20",
+      "rev": "3732756842a2f7e0e76a7b0487e9692072857277",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "blink.cmp": {
-      "rev": "327fff91fe6af358e990be7be1ec8b78037d2138",
+      "rev": "b19413d214068f316c78978b08264ed1c41830ec",
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
     "everforest": {
-      "rev": "3fffb096f6ac11372944ac964c60f8af41d8809f",
+      "rev": "b90025cc84dbb9c46df5a2ae540d3f01cf85af74",
       "src": "https://github.com/sainnhe/everforest"
     },
     "friendly-snippets": {
@@ -18,7 +18,7 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "gruvbox-material": {
-      "rev": "834dbf21836862300ced7444db4262b796330ab7",
+      "rev": "e4359a2f80ef7275b080be180841c62ca8322757",
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "gruvbox.nvim": {
@@ -26,19 +26,27 @@
       "src": "https://github.com/ellisonleao/gruvbox.nvim"
     },
     "hforest": {
-      "rev": "85a0bdc44d0ce0bccf183687f391aeb7805dcd28",
+      "rev": "d0219468074309c5e30df4172c508d8ecf705fd4",
       "src": "https://github.com/hugoocoto/hforest"
     },
     "lazy.nvim": {
-      "rev": "1ea3c4085785f460fb0e46d2fe1ee895f5f9e7c1",
+      "rev": "306a05526ada86a7b30af95c5cc81ffba93fef97",
       "src": "https://github.com/folke/lazy.nvim"
     },
+    "mini.nvim": {
+      "rev": "02fc1af931cb6e7bb475e4977f530073cfdcc20d",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "mini.pick": {
+      "rev": "8cb40ee55dd156957b1116eded6135e6aeaa078b",
+      "src": "https://github.com/nvim-mini/mini.pick"
+    },
     "neovim": {
-      "rev": "72a04c4065345b51b56aed4859ea1d884f734097",
+      "rev": "cf2a288696b03d0934da713d66c6d71557b5c997",
       "src": "https://github.com/rose-pine/neovim"
     },
     "nvim-lspconfig": {
-      "rev": "ac98db2f9f06a56498ec890a96928774eae412c3",
+      "rev": "ac04ec3c2af08e9821b4eb64ede86072b9b213bf",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
@@ -46,7 +54,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "oil.nvim": {
-      "rev": "71948729cda5fc1b761d6ae60ff774b5525f1d50",
+      "rev": "81b8a91735ad5cd24a6b3137f14a89f19176364f",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "plenary.nvim": {
@@ -54,11 +62,11 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "telescope.nvim": {
-      "rev": "b4da76b",
+      "rev": "3333a52ff548ba0a68af6d8da1e54f9cd96e9179",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "typst-preview.nvim": {
-      "rev": "dea4525d5420b7c32eebda7de15a6beb9d6574fa",
+      "rev": "e123a7ab64e52d836e00dea9251e85b201f38966",
       "src": "https://github.com/chomosuke/typst-preview.nvim",
       "version": "1.0.0 - 2.0.0"
     },

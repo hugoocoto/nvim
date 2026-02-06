@@ -2,16 +2,8 @@ vim.opt.termguicolors = true
 
 local c = {
         -- Color de fondo.
-        bg       = '#282c35', -- Color de fondo.
+        bg       = '#000000', -- Color de fondo.
         fg       = '#abb2bf', -- Color de texto principal.
-        black    = '#1e2127', -- Color negro
-        red      = '#e06c75', -- Color rojo
-        green    = '#98c379', -- Color verde
-        yellow   = '#e5c07b', -- Color amarillo
-        blue     = '#61afef', -- Color azul
-        magenta  = '#c678dd', -- Color magenta
-        cyan     = '#56b6c2', -- Color cian
-        white    = '#abb2bf', -- Color blanco
         br_black = '#5c6370', -- Color negro brillante
         br_white = '#ffffff', -- Color blanco brillante
 }
