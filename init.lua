@@ -23,6 +23,7 @@ vim.pack.add({
         src = "https://github.com/saghen/blink.cmp",
         version = vim.version.range("1.*"),
     },
+    "https://github.com/sar/friendly-snippets.nvim",
 })
 vim.api.nvim_create_user_command("PackUpdate", function()
     vim.pack.update()
@@ -84,32 +85,22 @@ vim.api.nvim_create_autocmd("BufReadCmd", {
     end,
 })
 
-vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-    pattern = "*.c",
-    callback = function()
-        vim.opt.tabstop = 8
-        vim.opt.shiftwidth = 8
-        vim.opt.softtabstop = -1
-    end,
-})
-
-vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-    pattern = "*.html",
-    callback = function()
-        vim.opt.tabstop = 2
-        vim.opt.shiftwidth = 2
-        vim.opt.softtabstop = -1
-    end,
-})
-
--- Enable stuff for writing buffers
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = { "*.md", "*.typ" },
+    pattern = { "*.c", "*.h" },
     callback = function()
-        vim.opt_local.formatoptions = "tln"
-        vim.opt_local.spell = true
-        vim.opt_local.wrap = true
-        vim.opt_local.linebreak = true
+        vim.opt_local.tabstop = 8
+        vim.opt_local.shiftwidth = 8
+        vim.opt_local.softtabstop = -1
+        vim.bo.filetype = "c"
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+    pattern = { "*.html", "*.css" },
+    callback = function()
+        vim.opt_local.tabstop = 2
+        vim.opt_local.shiftwidth = 2
+        vim.opt_local.softtabstop = -1
     end,
 })
 

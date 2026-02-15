@@ -17,6 +17,10 @@
       "rev": "572f5660cf05f8cd8834e096d7b4c921ba18e175",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
+    "friendly-snippets.nvim": {
+      "rev": "52dc9ce5e4c491aa98b79a0cec791a0400169bb6",
+      "src": "https://github.com/sar/friendly-snippets.nvim"
+    },
     "gruvbox-material": {
       "rev": "e4359a2f80ef7275b080be180841c62ca8322757",
       "src": "https://github.com/sainnhe/gruvbox-material"
