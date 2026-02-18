@@ -120,7 +120,11 @@ vim.lsp.enable({
     'jdtls',
     'rust_analyzer',
 })
-vim.lsp.config('tinymist', { settings = { formatterMode = 'typstyle' } })
+
+vim.lsp.config('tinymist', {
+    settings = { formatterMode = 'typstyle' }
+})
+
 vim.lsp.config('lua_ls', { -- remove undeclared vim
     settings = {
         Lua = {
