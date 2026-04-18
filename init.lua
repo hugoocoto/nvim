@@ -3,28 +3,19 @@
 -------------------------------------------------------------------------------
 
 vim.pack.add({
-    "https://github.com/stevearc/oil.nvim",
-    "https://github.com/wakatime/vim-wakatime",
     "https://github.com/neovim/nvim-lspconfig",
+
+    "https://github.com/stevearc/oil.nvim",
     "https://github.com/nvim-mini/mini.pick",
+    "https://github.com/nvim-mini/mini.extra",
+    "https://github.com/wakatime/vim-wakatime",
 
     "https://github.com/rose-pine/neovim",
     "https://github.com/sainnhe/everforest",
     "https://github.com/sainnhe/gruvbox-material",
     "https://github.com/hugoocoto/hforest",
 
-    {
-        src = "https://github.com/chomosuke/typst-preview.nvim",
-        version = vim.version.range("1.*"),
-    },
-    -- {
-    --     src = "https://github.com/saghen/blink.cmp",
-    --     version = vim.version.range("1.*"),
-    -- },
-    -- "https://github.com/sar/friendly-snippets.nvim",
-    -- "https://github.com/L3MON4D3/LuaSnip",
-    -- "https://github.com/nvim-treesitter/nvim-treesitter",
-    -- "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/chomosuke/typst-preview.nvim",
 })
 
 vim.api.nvim_create_user_command("PackUpdate", function()
@@ -133,15 +124,6 @@ vim.lsp.config('lua_ls', {
     }
 })
 
--- vim.lsp.config('clangd', {
---     cmd = {
---         "clangd",
---         "--background-index",
---         "--query-driver=/**/*xtensa-esp32-elf-gcc",
---         "--clang-tidy"
---     },
--- })
-
 vim.lsp.enable({
     'clangd',
     'pylsp',
@@ -197,33 +179,26 @@ vim.keymap.set('i', '<CR>', function()
     return '<CR>'
 end, { expr = true, replace_keycodes = true })
 
--- Interceptor de inserción de caracteres
+-- Completion menu trigger on triggerCharacters
 vim.api.nvim_create_autocmd("InsertCharPre", {
     callback = function(ev)
         local char = vim.v.char
-        -- Recuperación de las instancias LSP activas en el búfer actual
         local clients = vim.lsp.get_clients({ bufnr = ev.buf })
-        local is_trigger_character = false
 
-        -- Evaluación iterativa de las capacidades de los servidores adjuntos
         for _, client in ipairs(clients) do
             local provider = client.server_capabilities.completionProvider
             if provider and provider.triggerCharacters then
                 if vim.tbl_contains(provider.triggerCharacters, char) then
-                    is_trigger_character = true
+                    vim.schedule(function()
+                        vim.api.nvim_feedkeys(
+                            vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true),
+                            "n",
+                            false
+                        )
+                    end)
                     break
                 end
             end
-        end
-
-        if is_trigger_character then
-            vim.schedule(function()
-                vim.api.nvim_feedkeys(
-                    vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true),
-                    "n",
-                    false
-                )
-            end)
         end
     end,
 })
@@ -234,6 +209,7 @@ require 'typst-preview'.setup {
     dependencies_bin = { ['tinymst'] = 'tinymst' }
 }
 
+require 'mini.extra'.setup()
 require 'mini.pick'.setup()
 
 -------------------------------------------------------------------------------
@@ -243,7 +219,7 @@ vim.keymap.set("n", "<leader><leader>", vim.lsp.buf.format)
 vim.keymap.set("v", "<leader>p", [["_dP]])
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
-vim.keymap.set("c", "wq", "x") -- write if there are changes
+vim.keymap.set("c", "wq", "x")
 vim.keymap.set("v", "<leader>e", "y:echo <C-r>\"<cr>gv")
 vim.keymap.set("n", "<leader>c", "1z=")
 vim.keymap.set('n', '<bs>', function()
@@ -275,16 +251,17 @@ vim.keymap.set('x', '<C-_>', [[c__<esc>P]])
 local nmap_leader = function(suffix, rhs, desc)
     vim.keymap.set('n', '<Leader>' .. suffix, rhs, { desc = desc })
 end
+
 nmap_leader('f/', '<Cmd>Pick history scope="/"<CR>', '"/" history')
 nmap_leader('f:', '<Cmd>Pick history scope=":"<CR>', '":" history')
+nmap_leader('fC', '<Cmd>Pick git_commits path="%"<CR>', 'Commits (buf)')
+nmap_leader('fD', '<Cmd>Pick diagnostic scope="current"<CR>', 'Diagnostic buffer')
+nmap_leader('fG', '<Cmd>Pick grep pattern="<cword>"<CR>', 'Grep current word')
 nmap_leader('fa', '<Cmd>Pick git_hunks scope="staged"<CR>', 'Added hunks (all)')
 nmap_leader('fb', '<Cmd>Pick buffers<CR>', 'Buffers')
 nmap_leader('fc', '<Cmd>Pick git_commits<CR>', 'Commits (all)')
-nmap_leader('fC', '<Cmd>Pick git_commits path="%"<CR>', 'Commits (buf)')
 nmap_leader('fd', '<Cmd>Pick diagnostic scope="all"<CR>', 'Diagnostic workspace')
-nmap_leader('fD', '<Cmd>Pick diagnostic scope="current"<CR>', 'Diagnostic buffer')
 nmap_leader('ff', '<Cmd>Pick files<CR>', 'Files')
 nmap_leader('fg', '<Cmd>Pick grep_live<CR>', 'Grep live')
-nmap_leader('fG', '<Cmd>Pick grep pattern="<cword>"<CR>', 'Grep current word')
 nmap_leader('fh', '<Cmd>Pick help<CR>', 'Help tags')
 nmap_leader('fr', '<Cmd>Pick resume<CR>', 'Resume')

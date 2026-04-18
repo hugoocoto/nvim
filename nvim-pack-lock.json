@@ -37,6 +37,10 @@
       "rev": "306a05526ada86a7b30af95c5cc81ffba93fef97",
       "src": "https://github.com/folke/lazy.nvim"
     },
+    "mini.extra": {
+      "rev": "bc4e872500fd6d2ce252604e0ffa100f64f02280",
+      "src": "https://github.com/nvim-mini/mini.extra"
+    },
     "mini.nvim": {
       "rev": "418ef4930ddabe80f449c6f1323f8b6abb172d1c",
       "src": "https://github.com/nvim-mini/mini.nvim"
@@ -71,8 +75,7 @@
     },
     "typst-preview.nvim": {
       "rev": "325036ee145ca51d9efb145c09ac16bce3bc8b7d",
-      "src": "https://github.com/chomosuke/typst-preview.nvim",
-      "version": "1.0.0 - 2.0.0"
+      "src": "https://github.com/chomosuke/typst-preview.nvim"
     },
     "vim-wakatime": {
       "rev": "cb7ba055330245b3a9d29f8bb4b82aeb2d52e580",
