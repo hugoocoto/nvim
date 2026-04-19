@@ -61,15 +61,11 @@ vim.o.clipboard = "unnamedplus"
 vim.o.termguicolors = true
 vim.opt.spelllang = { "en", "es" }
 vim.o.path = '**'
-vim.o.autocomplete = true
-vim.o.complete = ".^5,t^3,w"
-vim.o.pummaxwidth = 40
-vim.o.completeopt = 'menu,menuone,noselect,popup'
-vim.o.complete = '.,o'
 vim.o.autocomplete = false
-vim.o.completeopt = 'menu,menuone,noselect,popup'
+vim.o.completeopt = 'menu,noselect,menuone,popup'
 vim.o.complete = '.,b,k'
 vim.o.autocomplete = false
+vim.o.pummaxwidth =0
 
 -------------------------------------------------------------------------------
 -- Misc stuff
