@@ -34,7 +34,7 @@ vim.o.backup = false                -- disable backup files
 vim.o.undofile = true               -- persistent undo
 
 -- vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir" -- undo file directory
-vim.cmd("set path+=/usr/lib/gcc/**/include,**")
+vim.opt.path:append({ "/usr/lib/gcc/**/include", "**" })
 
 vim.o.clipboard = "unnamedplus"    -- use system clipboard
 vim.o.ruler = false                -- hide ruler
@@ -96,6 +96,7 @@ end)
 -- bold and italic for typst
 vim.keymap.set('x', '<C-b>', [[c**<esc>P]])
 vim.keymap.set('x', '<C-_>', [[c__<esc>P]])
+vim.keymap.set('n', '<leader>m', ":wall<cr>:make<cr>")
 
 -- pickers
 vim.keymap.set('n', '<Leader>f/', '<Cmd>Pick history scope="/"<CR>', { desc = '"/" history' })
@@ -134,11 +135,11 @@ vim.pack.add({
     "https://github.com/sainnhe/everforest",
     "https://github.com/sainnhe/gruvbox-material",
     "https://github.com/vague-theme/vague.nvim",
+
+    "https://github.com/nvim-treesitter/nvim-treesitter",
 })
 
-vim.api.nvim_create_user_command("PackUpdate", function()
-    vim.pack.update()
-end, {})
+vim.api.nvim_create_user_command("PackUpdate", vim.pack.update, {})
 
 -------------------------------------------------------------------------------
 -- Plugin setup
@@ -194,8 +195,6 @@ vim.api.nvim_create_autocmd("InsertCharPre", {
     end,
 })
 
-require('vim._core.ui2').enable() -- enable ui2 messages
-
 require 'typst-preview'.setup {
     dependencies_bin = { ['tinymst'] = 'tinymst' }
 }
@@ -203,20 +202,49 @@ require 'typst-preview'.setup {
 require 'mini.extra'.setup()
 require 'mini.pick'.setup()
 require 'oil'.setup()
+require 'nvim-treesitter'.setup()
+
+-- Workaround: Neovim >=0.12 treesitter nil node in get_range
+-- https://github.com/neovim/neovim/issues/39032
+do
+    local _get_range = vim.treesitter.get_range
+    vim.treesitter.get_range = function(node, source, metadata)
+        if not node then
+            return { 0, 0, 0, 0, 0, 0 }
+        end
+        return _get_range(node, source, metadata)
+    end
+end
+
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function()
+        pcall(vim.treesitter.start)
+    end,
+})
 
 -------------------------------------------------------------------------------
 -- Misc stuff
 -------------------------------------------------------------------------------
 vim.g.gruvbox_material_background = 'hard'
 vim.g.gruvbox_material_disable_italic_comment = 1
-vim.cmd("colorscheme gruvbox-material")
+vim.cmd.colorscheme("gruvbox-material")
+
+-- Return to last position when opening a file
+vim.api.nvim_create_autocmd('BufReadPost', {
+    callback = function()
+        local mark = vim.api.nvim_buf_get_mark(0, '"')
+        if mark[1] > 1 and mark[1] <= vim.api.nvim_buf_line_count(0) then
+            vim.api.nvim_win_set_cursor(0, mark)
+        end
+    end,
+})
 
 -- Do not open pdf with nvim
 vim.api.nvim_create_autocmd("BufReadCmd", {
     pattern = "*.pdf",
     callback = function(ev)
         vim.fn.jobstart({ "zathura", ev.file }, { detach = true })
-        vim.cmd("quit")
+        vim.cmd.quit()
     end,
 })
 
