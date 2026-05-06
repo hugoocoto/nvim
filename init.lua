@@ -136,10 +136,8 @@ vim.pack.add({
     "https://github.com/sainnhe/gruvbox-material",
     "https://github.com/vague-theme/vague.nvim",
 
-    "https://github.com/nvim-treesitter/nvim-treesitter",
+    -- "https://github.com/nvim-treesitter/nvim-treesitter",
 })
-
-vim.api.nvim_create_user_command("PackUpdate", vim.pack.update, {})
 
 -------------------------------------------------------------------------------
 -- Plugin setup
@@ -202,25 +200,13 @@ require 'typst-preview'.setup {
 require 'mini.extra'.setup()
 require 'mini.pick'.setup()
 require 'oil'.setup()
-require 'nvim-treesitter'.setup()
+-- require 'nvim-treesitter'.setup()
 
--- Workaround: Neovim >=0.12 treesitter nil node in get_range
--- https://github.com/neovim/neovim/issues/39032
-do
-    local _get_range = vim.treesitter.get_range
-    vim.treesitter.get_range = function(node, source, metadata)
-        if not node then
-            return { 0, 0, 0, 0, 0, 0 }
-        end
-        return _get_range(node, source, metadata)
-    end
-end
-
-vim.api.nvim_create_autocmd('FileType', {
-    callback = function()
-        pcall(vim.treesitter.start)
-    end,
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+--     callback = function()
+--         pcall(vim.treesitter.start)
+--     end,
+-- })
 
 -------------------------------------------------------------------------------
 -- Misc stuff
