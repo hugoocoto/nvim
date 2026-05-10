@@ -48,6 +48,10 @@ vim.o.complete = '.,b,k'                          -- completion sources
 vim.o.completeopt = 'menu,noselect,menuone,popup' -- popup completion behavior
 vim.o.pummaxwidth = 0                             -- no popup width cap
 
+-- temporal
+vim.o.wrap = true -- wrap
+vim.o.linebreak = true -- "inteligent" wrap
+
 -------------------------------------------------------------------------------
 -- Diagnostics
 -------------------------------------------------------------------------------
@@ -283,3 +287,4 @@ vim.lsp.enable({
     'jdtls',
     'rust_analyzer',
 })
+
