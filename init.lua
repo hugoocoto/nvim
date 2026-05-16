@@ -5,6 +5,7 @@
 vim.g.did_install_default_menus = 1 -- avoid stupid menu.vim (saves ~100ms)
 vim.g.loaded_netrwPlugin = 0        -- Disable netrw. 🚮 (comment from justinmk)
 vim.opt.shortmess:append("I")       -- Disable start menu
+vim.opt.completeopt = 'menu,menuone,noselect' -- disable built-in completion
 
 vim.g.mapleader = " "               -- leader key (Space)
 vim.o.guicursor = ""                -- use block cursor
@@ -42,14 +43,8 @@ vim.o.showcmd = false              -- hide partial command display
 vim.o.showmode = false             -- hide default mode text
 vim.opt.spelllang = { "en", "es" } -- spellcheck languages
 
--- completion
-vim.o.autocomplete = false                        -- manual completion only
-vim.o.complete = '.,b,k'                          -- completion sources
-vim.o.completeopt = 'menu,noselect,menuone,popup' -- popup completion behavior
-vim.o.pummaxwidth = 0                             -- no popup width cap
-
 -- temporal
-vim.o.wrap = true -- wrap
+vim.o.wrap = true      -- wrap
 vim.o.linebreak = true -- "inteligent" wrap
 
 -------------------------------------------------------------------------------
@@ -140,6 +135,12 @@ vim.pack.add({
     "https://github.com/sainnhe/gruvbox-material",
     "https://github.com/vague-theme/vague.nvim",
 
+    {
+        src = "https://github.com/saghen/blink.cmp",
+        version = vim.version.range("^1"),
+    },
+    "https://github.com/sar/friendly-snippets.nvim",
+    "https://github.com/L3MON4D3/LuaSnip",
     -- "https://github.com/nvim-treesitter/nvim-treesitter",
 })
 
@@ -147,55 +148,11 @@ vim.pack.add({
 -- Plugin setup
 -------------------------------------------------------------------------------
 
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(ev)
-        vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = false })
-        vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-    end,
-})
-
-vim.keymap.set('i', '<Tab>', function()
-    if vim.fn.pumvisible() == 1 then return '<C-n>' end
-    local line = vim.api.nvim_get_current_line()
-    local col = vim.api.nvim_win_get_cursor(0)[2]
-    local text_before_cursor = string.sub(line, 1, col)
-    if string.match(text_before_cursor, "/$") then return '<C-x><C-f>' end
-    return '<C-x><C-o>'
-end, { expr = true, replace_keycodes = true })
-
-vim.keymap.set('i', '<S-Tab>', function()
-    if vim.fn.pumvisible() == 1 then return '<C-p>' end
-    return '<S-Tab>'
-end, { expr = true, replace_keycodes = true })
-
-vim.keymap.set('i', '<CR>', function()
-    if vim.fn.pumvisible() == 1 then return '<C-y>' end
-    return '<CR>'
-end, { expr = true, replace_keycodes = true })
-
--- Completion menu trigger on triggerCharacters
-vim.api.nvim_create_autocmd("InsertCharPre", {
-    callback = function(ev)
-        local char = vim.v.char
-        local clients = vim.lsp.get_clients({ bufnr = ev.buf })
-
-        for _, client in ipairs(clients) do
-            local provider = client.server_capabilities.completionProvider
-            if provider and provider.triggerCharacters then
-                if vim.tbl_contains(provider.triggerCharacters, char) then
-                    vim.schedule(function()
-                        vim.api.nvim_feedkeys(
-                            vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true),
-                            "n",
-                            false
-                        )
-                    end)
-                    break
-                end
-            end
-        end
-    end,
-})
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--     callback = function(ev)
+--         vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+--     end,
+-- })
 
 require 'typst-preview'.setup {
     dependencies_bin = { ['tinymst'] = 'tinymst' }
@@ -204,6 +161,32 @@ require 'typst-preview'.setup {
 require 'mini.extra'.setup()
 require 'mini.pick'.setup()
 require 'oil'.setup()
+
+-- blink.cmp + LuaSnip setup
+local luasnip = require 'luasnip'
+luasnip.config.setup {}
+luasnip.filetype_extend('jsp', { 'html' })
+require('luasnip.loaders.from_vscode').lazy_load()
+
+require('blink.cmp').setup {
+    snippets = { preset = 'luasnip' },
+    keymap = {
+        preset = 'none',
+        ['<Tab>'] = { 'show', 'select_next', 'snippet_forward', 'fallback' },
+        ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+        ['<CR>'] = { 'accept', 'fallback' },
+    },
+    completion = {
+        trigger = {
+            show_on_keyword = false,
+            show_on_trigger_character = true,
+        },
+    },
+    sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+    },
+}
+
 -- require 'nvim-treesitter'.setup()
 
 -- vim.api.nvim_create_autocmd('FileType', {
@@ -215,6 +198,8 @@ require 'oil'.setup()
 -------------------------------------------------------------------------------
 -- Misc stuff
 -------------------------------------------------------------------------------
+require('vim._core.ui2').enable() -- enable ui2 messages
+
 vim.g.gruvbox_material_background = 'hard'
 vim.g.gruvbox_material_disable_italic_comment = 1
 vim.cmd.colorscheme("gruvbox-material")
@@ -287,4 +272,3 @@ vim.lsp.enable({
     'jdtls',
     'rust_analyzer',
 })
-
